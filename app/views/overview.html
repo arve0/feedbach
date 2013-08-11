@@ -1,0 +1,29 @@
+
+<div id="overview">
+  <h3>Your precious surveys</h3>
+  <accordion close-others="true">
+    <accordion-group ng-repeat="survey in surveys | orderBy:'_id':true">
+      <accordion-heading>
+        <h4>{{survey.id}} <small>{{survey.description}}</small></h4>
+        <button ng-click="deleteSurvey(survey.id)" class="btn btn-warning">Delete</button>
+        <button ng-click="gotoView(survey.id)" class="btn btn-primary">Live view</button>
+      </accordion-heading>
+      <accordion-body>
+        <ul ng-repeat="question in survey.questions"><strong>{{question.question}}</strong>
+          <li ng-repeat="answer in question.answers">{{answer.answer}}</li>
+        </ul>
+        <hr/><strong>Votes: </strong><span>{{ survey.totalVotes || 0 }}</span><strong class="pull-right">Created: <span>{{ idToDate(survey._id) | date:'MMM d, y H:mm' }}</span></strong>
+      </accordion-body>
+    </accordion-group>
+  </accordion>
+</div>
+<div modal="surveys.length == 0">
+  <div class="modal-header">
+    <h4>No surveys found</h4>
+  </div>
+  <div class="modal-body">Could not find any surveys. Do you want to create some?</div>
+  <div class="modal-footer">
+    <button ng-click="gotoCreate()" class="btn btn-primary">Sure, I'll create one</button>
+    <botton ng-click="goHome()" class="btn">No way, Jose!</botton>
+  </div>
+</div>

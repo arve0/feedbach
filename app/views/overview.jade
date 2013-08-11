@@ -1,0 +1,24 @@
+#overview
+  h3 Your precious surveys
+  accordion(close-others='true')
+    accordion-group(ng-repeat="survey in surveys | orderBy:'_id':true")
+      accordion-heading
+        h4 {{survey.id}} 
+          small {{survey.description}}
+        button.btn.btn-warning(ng-click='deleteSurvey(survey.id)') Delete
+        button.btn.btn-primary(ng-click='gotoView(survey.id)') Live view
+      accordion-body
+        ul(ng-repeat='question in survey.questions')
+          strong {{question.question}}
+          li(ng-repeat='answer in question.answers') {{answer.answer}}
+        hr
+        strong Votes: 
+        span {{ survey.totalVotes || 0 }}
+        strong.pull-right Created: 
+          span {{ idToDate(survey._id) | date:'MMM d, y H:mm' }}
+div(modal='surveys.length == 0')
+  .modal-header: h4 No surveys found
+  .modal-body Could not find any surveys. Do you want to create some?
+  .modal-footer
+    button.btn.btn-primary(ng-click='gotoCreate()') Sure, I'll create one
+    botton.btn(ng-click='goHome()') No way, Jose!

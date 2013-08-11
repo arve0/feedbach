@@ -1,0 +1,29 @@
+
+<div id="vote" ng-switch="view">
+  <div ng-switch-when="fetching" class="fetching">     Please wait...</div>
+  <div ng-switch-when="vote" class="vote">
+    <h4>Please vote below!</h4>
+    <ul class="nav nav-tabs">
+      <li ng-repeat="q in survey.questions" ng-class="{ active: $index==activeTab }"><a ng-click="setActive($index)"><span class="hidden-phone">Question </span>{{$index + 1}}</a></li>
+    </ul>
+    <div class="tab-content">
+      <div ng-repeat="q in survey.questions" class="tab">
+        <fieldset ng-show="$index==activeTab" ng-animate="'slide'"><b>{{q.question}}</b>
+          <div ng-repeat="a in q.answers" class="answer">
+            <input type="radio" id="[{{$parent.$index}}][{{$index}}]" name="vote{{$parent.$index}}" value="{{$index}}" ng-model="feedback.votes[$parent.$index]" ng-change="vote()" class="pull-left"/>
+            <label for="[{{$parent.$index}}][{{$index}}]">{{a.answer}}</label>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>
+<div modal="modal.show" close="modal.close()" options="modal.opts">
+  <div class="modal-header">
+    <h3>{{modal.title}}</h3>
+  </div>
+  <div class="modal-body">{{modal.msg}}</div>
+  <div class="modal-footer">
+    <button ng-click="modal.close()" class="btn btn-warning cancel">{{modal.button}}</button>
+  </div>
+</div>

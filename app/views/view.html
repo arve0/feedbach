@@ -1,0 +1,18 @@
+
+<div id="view">
+  <div class="header span12">
+    <h4>{{survey.id}}<small>{{survey.description}}</small></h4>
+    <button ng-click="resetFeedback(survey.id)" class="btn btn-warning">Reset feedback</button>
+    <button ng-click="deleteSurvey(survey.id)" class="btn btn-danger">Delete</button>
+  </div>
+  <div ng-repeat="q in survey.questions" class="span6 questions"><span class="question">{{q.question}}</span>
+    <div ng-repeat="a in q.answers" class="answers">
+      <div class="span4 answer">{{a.answer}}</div>
+      <div class="span8">
+        <progress percent="a.percent" auto-text="true"></progress>
+      </div>
+    </div>
+  </div>
+  <div class="bottom"><strong>Votes: {{survey.totalVotes}}</strong></div>
+</div>
+<not-found-modal></not-found-modal>

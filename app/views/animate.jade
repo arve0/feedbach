@@ -1,0 +1,4 @@
+form(name='frm')
+  input(ng-repeat='input in form.inputs', name='{{input.name}}', type='text', required)
+    .error(ng-show='frm.{{input.name}}.$error.required') Field {{input.name}} is required
+  button(type='submit') submit
