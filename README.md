@@ -3,6 +3,8 @@ feedbach
 
 A student response system written in AngularJS and NodeJS. The goal of this project is to create an easy way to create surveys for use in the class room. Everything is available as a HTML5 app, with no need to download or install software. Need to ask a question? Just do it! No need for login or student registration, just plain simple.
 
+Visit http://feedba.ch/ to see it in action.
+
 
 Why?
 ====
