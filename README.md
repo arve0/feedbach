@@ -12,13 +12,13 @@ I'm a teacher student, and was not satisfied with the solutions available as of 
 
 Alternatives
 ============
-HiST Student Response System: http://www.histproject.no/node/263 - Requires to install software.
-Mentimeter: https://www.mentimeter.com/ - This one is nice. Clean, simple, but expensive.
-Plickers: https://www.plickers.com/ - Totaly awesome, without need for student hardware.
-Poll everywhere: http://www.polleverywhere.com/ - Supports SMS! Registration required?
-Socrative: http://www.socrative.com/ - Registration required.
-Top Hat: https://tophat.com/ - Students pay? Studens are poor, let the rich pay instead.
-ExitTicket: http://exitticket.org/ - Lots of features, login required.
+* HiST Student Response System: http://www.histproject.no/node/263 - Requires to install software.
+* Mentimeter: https://www.mentimeter.com/ - This one is nice. Clean, simple, but limited or expensive.
+* Plickers: https://www.plickers.com/ - Totaly awesome, without need for student hardware.
+* Poll everywhere: http://www.polleverywhere.com/ - Supports SMS! Registration required?
+* Socrative: http://www.socrative.com/ - Registration required.
+* Top Hat: https://tophat.com/ - Students pay? Studens are poor, let the rich pay!
+* ExitTicket: http://exitticket.org/ - Lots of features, login required.
 
 
 My features
