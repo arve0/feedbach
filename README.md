@@ -29,5 +29,20 @@ My features
 * Feedback is updated in real time
 
 
+Status
+======
+The basic currently works, some rough edges.
+
+
+TODO
+====
+- [ ] Reset feedback
+- [ ] About
+- [ ] IE vertical align
+- [ ] Test voting on more mobile browsers
+- [ ] Refactor code: modal directive, REST-ful api?
+- [ ] Passport login
+- [ ] Review feedback(s) sent
+
 
 SEO: mentometer, live survey, live feedback, student response system (SRS), real time survey
