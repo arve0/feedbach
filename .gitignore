@@ -6,4 +6,5 @@ app/bower_components
 .DS_Store
 test
 dump.rdb
-*.sw?
+*.swp
+*.swo
