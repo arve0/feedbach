@@ -19,7 +19,7 @@ So why not create my own when learning AngularJS and NodeJS? :-)
 Alternatives
 ============
 * HiST Student Response System: http://www.histproject.no/node/263 - Requires to install software, not easily available.
-* Kahoot: http://getkahoot.it - Simple, fun, free(as in beer), limited beta access.
+* Kahoot: http://getkahoot.com - Simple, fun, free(as in beer), limited beta access.
 * Mentimeter: https://www.mentimeter.com/ - This one is nice. Clean, simple, but limited or expensive.
 * Plickers: https://www.plickers.com/ - Totaly awesome, without need for student hardware.
 * Poll everywhere: http://www.polleverywhere.com/ - Supports SMS! Registration required?
