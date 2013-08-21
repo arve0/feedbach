@@ -11,10 +11,15 @@ Why?
 
 I'm a teacher student, and was not satisfied with the solutions available as of spring 2013. First, I was introduced to HiST Student Response System, which needs a program installed. It got some nice features, but why all that fancy stuff? Why not keep it simple? I like it simple.
 
+Then I heard about Kahoot, also a software originating from Trondheim(NTNU). Kahoot is simple and clean, and at the same time feature rich and fun. But Kahoot have limited beta access, and requires registration(only the teacher).
+
+So why not create my own when learning AngularJS and NodeJS? :-)
+
 
 Alternatives
 ============
-* HiST Student Response System: http://www.histproject.no/node/263 - Requires to install software.
+* HiST Student Response System: http://www.histproject.no/node/263 - Requires to install software, not easily available.
+* Kahoot: http://getkahoot.it - Simple, fun, free(as in beer), limited beta access.
 * Mentimeter: https://www.mentimeter.com/ - This one is nice. Clean, simple, but limited or expensive.
 * Plickers: https://www.plickers.com/ - Totaly awesome, without need for student hardware.
 * Poll everywhere: http://www.polleverywhere.com/ - Supports SMS! Registration required?
