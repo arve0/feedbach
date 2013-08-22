@@ -18,7 +18,7 @@ a:hover {
     font-family: Courier;
     font-weight: bold;
     font-size: 30px;
-    line-height: 40px;
+    line-height: 1;
     height: 30px;
   }
   button {
@@ -60,7 +60,7 @@ a:hover {
     opacity: 0.3;
     font-weight: bold;
     font-size: 20px;
-    line-height: 20px;
+    line-height: 1;
     color: black;
     text-shadow: 1px 1px 0 white;
     vertical-align: middle;
@@ -189,7 +189,7 @@ a:hover {
     display: block;
     @include border-radius(5px 5px 0px 0px);
     font-size: 20px;
-    line-height: 20px;
+    line-height: 1;
     font-weight: 200;
   }
   .answers {
