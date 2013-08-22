@@ -41,6 +41,14 @@ Status
 The basic currently works, some rough edges.
 
 
+Coding
+======
+* Scaffolded with http://yeoman.io/
+* Indented with 2 spaces
+* Client side code inn app folder
+* Server side code inn server.js (for now)
+
+
 TODO
 ====
 - [x] Reset feedback
@@ -51,6 +59,8 @@ TODO
 - [ ] Refactor code: modal directive, survey-data as angular service
 - [ ] Passport login
 - [ ] Review feedback(s) sent
+- [ ] Remove debug messages
+- [ ] Move server side code to module(s)
 
 
 SEO: mentometer, live survey, live feedback, student response system (SRS), real time survey
