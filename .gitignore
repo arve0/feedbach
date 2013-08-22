@@ -9,3 +9,4 @@ dump.rdb
 *.swp
 *.swo
 *~
+app/views/*.html
