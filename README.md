@@ -45,7 +45,8 @@ TODO
 ====
 - [ ] Reset feedback
 - [ ] About
-- [ ] IE vertical align
+- [x] IE vertical align
+- [ ] Buttons instead of radio in vote page
 - [ ] Test voting on more mobile browsers
 - [ ] Refactor code: modal directive, REST-ful api?
 - [ ] Passport login

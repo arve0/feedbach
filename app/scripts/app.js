@@ -40,17 +40,14 @@ angular.module('feedbachApp', ['ui.bootstrap', 'truncate'])
     });
 })
 .directive('verticalCenter', function(){
-  return {
-    restrict: 'A',
-    transclude: true,
-    template: '<div style="margin-top: {{pixels}}px" ng-transclude></div>',
-    link: function(scope, element, attrs){
-      scope.pixels = ($(window).height() - element.height())/2 - 30;
-      $(window).resize(function(){
-        scope.pixels = ($(window).height() - element.height())/2 - 30;
-        scope.$digest();
-      })
-    }
+  return function(scope, element, attr){
+    var pixels = ($(window).height() - element.height())/2 - 30 + 'px';
+    element.css('margin-top', pixels);
+    $(window).resize(function(){
+      pixels = ($(window).height() - element.height())/2 - 30 + 'px';
+      element.css('margin-top', pixels);
+    //  scope.$digest();
+    });
   }
 })
 .directive('notFoundModal', function(){
