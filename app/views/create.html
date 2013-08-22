@@ -1,7 +1,7 @@
 
 <form id="create" novalidate="novalidate" name="createSurvey" ng-submit="submitSurvey()">
   <input type="hidden" ng-modell="{{survey.id}}"/>
-  <label for="description">{{survey.id}}</label>
+  <label for="description" class="id">{{survey.id}}</label>
   <input type="text" id="description" placeholder="{{placeholder.description}}" ng-model="survey.description" tooltip-placement="bottom" tooltip-trigger="focus" tooltip-html-unsafe="Add a description to survey &lt;strong&gt;{{survey.id}}&lt;/strong&gt; to easier remember it." class="input"/>
   <ul class="nav nav-tabs">
     <li ng-repeat="q in survey.questions" ng-class="{ active: $index==active }"><a ng-click="setActive($index)"><span class="hidden-phone">Question </span>{{$index + 1}}</a></li>

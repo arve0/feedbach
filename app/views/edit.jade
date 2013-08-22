@@ -1,6 +1,6 @@
 form(id='edit', name='editSurvey', ng-submit='submitSurvey()')
   input(type='hidden', ng-modell='{{survey.id}}')
-  label(for='description') {{survey.id}}
+  label.id(for='description') {{survey.id}}
   input.input(type='text', id='description', placeholder='{{placeholder.description}}', ng-model='survey.description')
   ul.nav.nav-tabs
     li(ng-repeat='q in survey.questions', ng-class='{ active: $index==active }')

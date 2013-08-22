@@ -21,7 +21,7 @@ angular.module('feedbachApp')
     if (0==total) $scope.survey.totalVotes=0;
     for(var i=0;i<$scope.survey.questions.length;i++){
       for(var j=0;j<$scope.survey.questions[i].answers.length;j++){
-        var votes = ($scope.survey.questions[i].answers[j].votes?$scope.survey.questions[i].answers[j].votes:0);
+        var votes = $scope.survey.questions[i].answers[j].votes || 0;
         var p = (total?(votes / total * 100).toFixed(1):0);
         $scope.survey.questions[i].answers[j].percent = p;
       }
@@ -58,6 +58,24 @@ angular.module('feedbachApp')
       })
   }
   $scope.resetFeedback = function(){
-    //TODO
+    $http.delete('/feedback/' + $routeParams.id)
+      .success(function(){
+        $http.get($routeParams.id + '.json').success(function(data){
+          resetVotes();
+        })
+      })
+      .error(function(){
+        //TODO
+        alert('could not reset feedback');
+      })
+  }
+  var resetVotes = function(){
+    $scope.survey.totalVotes = 0;
+    for (var i=0; i < $scope.survey.questions.length; i++){
+      for (var j=0; j < $scope.survey.questions[i].answers.length; j++){
+        $scope.survey.questions[i].answers[j].votes = 0;
+      }
+    }
+    calculatePercent();
   }
 }); 

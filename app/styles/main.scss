@@ -33,15 +33,15 @@ a:hover {
     list-style: none;
   }
 }
+.id {
+  margin-right: 5px;
+  margin-top: 5px;
+  font-family: Courier;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 1;
+}
 #create,#edit {
-  > label {
-    margin-right: 5px;
-    margin-top: 5px;
-    font-family: Courier;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 1;
-  }
   .answer {
     height: 40px;
     clear: left;

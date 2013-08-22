@@ -1,6 +1,6 @@
 #view
   .header.span12
-    h4 {{survey.id}}
+    h4.id {{survey.id}}
       small {{survey.description}}
     button.btn.btn-warning(ng-click=('resetFeedback(survey.id)')) Reset feedback
     button.btn.btn-danger(ng-click=('deleteSurvey(survey.id)')) Delete

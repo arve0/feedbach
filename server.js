@@ -230,12 +230,36 @@ server.delete('/:id.json', function(req, res, next){
   Survey.findOne({ id: req.params.id, owner: req.sessionID }, function(err, doc){
     if (err) next(err);
     if (doc) {
-      res.send(200, 'Removed');
+      Feedback.remove({id: req.params.id}, function(err){
+        if (err) next(err);
+        res.send(200, 'Removed');
+      });
     }
     else res.send(401, 'Not authorized.');
   })
   .remove();
 });
+server.delete('/feedback/:id', function(req, res, next){
+  Survey.findOne({ id: req.params.id, owner: req.sessionID }, function(err, doc){
+    if (err) next(err);
+    if (doc) {
+      for (var i = 0; i < doc.questions.length; i++){ // delete votes
+        for (var j = 0; j < doc.questions[i].answers.length; j++){
+          doc.questions[i].answers[j].votes = 0;
+        }
+      }
+      doc.totalVotes = 0;
+      Feedback.remove({id: req.params.id}, function(err){
+        if (err) next(err);
+        doc.save(function(err){
+          if (err) next(err);
+          res.send(200, 'Removed feedback');
+        });
+      });
+    }
+    else res.send(401, 'Not authorized.');
+  })
+})
 server.get('/:id', function(req, res, next){
   Survey.findOne({ id: req.params.id }, function(err, doc){
     if (err) next(err);

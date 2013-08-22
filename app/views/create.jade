@@ -1,6 +1,6 @@
 form(id='create', novalidate, name='createSurvey', ng-submit='submitSurvey()')
   input(type='hidden', ng-modell='{{survey.id}}')
-  label(for='description') {{survey.id}}
+  label.id(for='description') {{survey.id}}
   input.input(type='text', id='description', placeholder='{{placeholder.description}}', ng-model='survey.description', tooltip-placement='bottom', tooltip-trigger='focus', tooltip-html-unsafe='Add a description to survey <strong>{{survey.id}}</strong> to easier remember it.')
   ul.nav.nav-tabs
     li(ng-repeat='q in survey.questions', ng-class='{ active: $index==active }')

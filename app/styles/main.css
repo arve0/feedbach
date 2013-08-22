@@ -8338,8 +8338,8 @@ a:hover {
   list-style: none;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/arve\/feedbach\/app\/styles\/main\.scss}line{font-family:\0000337}}
-#create > label, #edit > label {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/arve\/feedbach\/app\/styles\/main\.scss}line{font-family:\0000336}}
+.id {
   margin-right: 5px;
   margin-top: 5px;
   font-family: Courier;
@@ -8347,6 +8347,7 @@ a:hover {
   font-size: 20px;
   line-height: 1;
 }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/arve\/feedbach\/app\/styles\/main\.scss}line{font-family:\0000345}}
 #create .answer, #edit .answer {
   height: 40px;

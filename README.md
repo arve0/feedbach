@@ -43,12 +43,12 @@ The basic currently works, some rough edges.
 
 TODO
 ====
-- [ ] Reset feedback
+- [x] Reset feedback
 - [ ] About
 - [x] IE vertical align
 - [ ] Buttons instead of radio in vote page
 - [ ] Test voting on more mobile browsers
-- [ ] Refactor code: modal directive, REST-ful api?
+- [ ] Refactor code: modal directive, survey-data as angular service
 - [ ] Passport login
 - [ ] Review feedback(s) sent
 
