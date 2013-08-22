@@ -10,3 +10,4 @@ dump.rdb
 *.swo
 *~
 app/views/*.html
+app/views/directives/*.html
