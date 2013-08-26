@@ -27,10 +27,6 @@ angular.module('feedbachApp', ['ui.bootstrap', 'truncate'])
       templateUrl: 'views/about.html',
       controller: 'AboutCtrl'
     })
-    .when('/edit/:id', {
-      templateUrl: 'views/edit.html',
-      controller: 'EditCtrl'
-    })
     .when('/:id', {
       templateUrl: 'views/vote.html',
       controller: 'VoteCtrl'
@@ -48,12 +44,5 @@ angular.module('feedbachApp', ['ui.bootstrap', 'truncate'])
       element.css('margin-top', pixels);
     //  scope.$digest();
     });
-  }
-})
-.directive('notFoundModal', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'views/directives/not-found-modal.html',
-    replace: true
   }
 })

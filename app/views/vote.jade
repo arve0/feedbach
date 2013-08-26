@@ -14,9 +14,6 @@
           .answer(ng-repeat='a in q.answers')
             input.pull-left(type='radio', id='[{{$parent.$index}}][{{$index}}]', name='vote{{$parent.$index}}', value='{{$index}}', ng-model='feedback.votes[$parent.$index]', ng-change='vote()')
             label(for='[{{$parent.$index}}][{{$index}}]') {{a.answer}}
-div(modal='modal.show', close='modal.close()', options='modal.opts')
-  .modal-header
-    h3 {{modal.title}}
-  .modal-body {{modal.msg}}
-  .modal-footer
-    button.btn.btn-warning.cancel(ng-click='modal.close()') {{modal.button}}
+fb-modal(vote-recieved)
+fb-modal(vote-already-recieved)
+fb-modal(survey-not-found)

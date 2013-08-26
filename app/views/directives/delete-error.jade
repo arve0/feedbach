@@ -1,0 +1,6 @@
+modal(show='modal.show == "deleteError"', close='reload()', opts='modal.opts')
+  .modal-header
+    h3 Error
+  .modal-body Could not delete survey.
+  .modal-footer
+    button.btn(ng-click='reload()') Doh!

@@ -1,18 +1,7 @@
 'use strict';
 
 angular.module('feedbachApp')
-.controller('VoteCtrl', function ($scope, $routeParams, $http, $location, $dialog) {
-  // modal
-  $scope.modal = {}
-  $scope.modal.show = false;
-  $scope.modal.opts = {
-    backdropFade: true,
-    dialogFade:true
-  }
-  $scope.modal.close = function() {
-    $scope.modal.show = false;
-    $location.path('/');
-  }
+.controller('VoteCtrl', function ($scope, $routeParams, $http, $location) {
   var numberOfQuestions = 0;  
   $scope.view = 'fetching';
   $http.get($routeParams.id + '.json', {cache: false})
@@ -22,10 +11,12 @@ angular.module('feedbachApp')
       $scope.view = 'vote';
     })
     .error(function(data, status) {
-      if (404 == status) {
-        notFoundModal();
-      }
-      else errorModal();
+      if (404 == status) 
+        $scope.modal.show = 'surveyNotFound';
+      else if (403 == status)
+        $scope.modal.show = 'voteAlreadyRecieved'
+      else
+        $scope.modal.show = 'error';
   }); 
   $scope.feedback = {};
   $scope.feedback.id = $routeParams.id;
@@ -55,36 +46,15 @@ angular.module('feedbachApp')
     }
   }
   function sendVote() {
-    console.log('sending vote: \n' + JSON.stringify($scope.feedback, null, 2)); //TODO
     $http.post('/vote', $scope.feedback)
       .success(function(){
-        $scope.modal.title = 'Thanks';
-        $scope.modal.msg = 'We have saved your vote.';
-        $scope.modal.button = 'Continue';
-        $scope.modal.show = true;
+        $scope.modal.show = 'voteRecieved';
       })
-      .error(function(){
-        errorModal();
-    });
-  }
-  var errorModal = function() {
-    $scope.modal.title = 'Error';
-    $scope.modal.msg = 'Something went wrong. Have you already voted?';
-    $scope.modal.button = 'Cancel';
-    $scope.modal.show = true;
-  }
-  var notFoundModal = function(){
-    var title = $routeParams.id + ' not found';
-    var msg = 'Could not find a survey with id ' + $routeParams.id + '. Want to create it?';
-    var buttons = [
-      { result: false, label: 'Cancel'},
-      { result: true, label: 'Create', cssClass: 'btn-primary'}
-    ];
-    $dialog.messageBox(title, msg, buttons)
-      .open()
-      .then(function(create){
-        if (create) $location.path('/create/' + $routeParams.id);
-        else $location.path('/');
+      .error(function(data, status){
+        if (403 == status)
+          $scope.modal.show = 'voteAlreadyRecieved';
+        else
+          $scope.modal.show = 'error';
     });
   }
 });

@@ -9,10 +9,4 @@
   li(ng-repeat="survey in surveys | orderBy:'_id':true | limitTo:5"): a(href='/#/view/{{survey.id}}') {{survey.id}} 
     span(ng-if="survey.description != ''") - {{survey.description | words:5 }}
   a(ng-if='surveys.length > 5', href='/#/overview'): strong More...
-div(modal='feedbackGiven', close='closeModal()', options='modalOpts')
-  .modal-header
-    h3 Feedback already given
-  .modal-body We've already recieved your feedback for id 
-    strong {{id()}}.
-  .modal-footer
-    button.btn.btn-warning.cancel(ng-click='closeModal()') OK
+fb-modal(vote-already-recieved)

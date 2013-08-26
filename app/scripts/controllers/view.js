@@ -1,7 +1,33 @@
 'use strict';
 
 angular.module('feedbachApp')
-.controller('ViewCtrl', function ($scope, $routeParams, $http, $location) {
+.controller('ViewCtrl', function ($scope, $routeParams, $http, $location, $timeout) {
+  // Variables
+  $scope.id = $routeParams.id;
+
+  // Resource
+  $http.get($routeParams.id + '.json')
+    .success(function(data, status){
+      if (!data.owner) {
+        $scope.modal.show = 'viewNotAllowed';
+        console.log('not allowed');
+      }
+      else {
+        $scope.survey = data;
+        calculatePercent();
+      }
+    })
+    .error(function(data, status) {
+      if (404 == status) {
+        $scope.modal.show = 'surveyNotFound';
+      }
+      else {
+        $scope.modal.show = 'error';
+      }
+    })
+
+
+  // Socket.io
   var socket = io.connect('', { 'force new connection': true, query: 'id=' + $routeParams.id });
   socket.on('update', function(feedback){
     for (var i = 0; i < feedback.votes.length; i++) {
@@ -16,6 +42,9 @@ angular.module('feedbachApp')
     // disconnect socket when leaving page
     socket.disconnect();
   });
+
+
+  // Functions
   var calculatePercent = function(){
     var total = $scope.survey.totalVotes || 0;
     if (0==total) $scope.survey.totalVotes=0;
@@ -27,34 +56,13 @@ angular.module('feedbachApp')
       }
     }
   }
-  $http.get($routeParams.id + '.json')
-    .success(function(data, status){
-      if (!data.owner) $location.path('/'); //TODO: add modal
-      $scope.survey = data;
-      calculatePercent();
-    })
-    .error(function(data, status) {
-      if (404 == status) {
-        $scope.notFound = true;
-      }
-      else $location.path('/');
-    })
-  $scope.gotoCreate = function(){
-    $scope.notFound = false;
-    $location.path('/create/' + $routeParams.id);
-  }
-  $scope.notFoundCancel = function(){
-    $scope.notFound = false;
-    $location.path('/');
-  }
   $scope.deleteSurvey = function(){
     $http.delete('/' + $routeParams.id + '.json')
       .success(function(){
         $location.path('/');
       })
-      .error(function(){
-        //TODO
-        alert('could not delete survey');
+      .error(function(data){
+        $scope.modal.show = 'deleteError';
       })
   }
   $scope.resetFeedback = function(){
@@ -65,8 +73,7 @@ angular.module('feedbachApp')
         })
       })
       .error(function(){
-        //TODO
-        alert('could not reset feedback');
+        $scope.modal.show = 'resetError'
       })
   }
   var resetVotes = function(){

@@ -2,32 +2,28 @@
 
 angular.module('feedbachApp')
 .controller('OverviewCtrl', function ($scope, $http, $location) {
+  // Variables
+
+
+  // Resources
+  getSurveys();
+  
+  
+  // Functions
   function getSurveys() {
     $http.get('/surveys.json')
       .success(function(data, status){
         $scope.surveys = data;
+        if ($scope.surveys.length == 0) {
+          $scope.modal.show = 'noSurveys';
+        }
       });
   }
-  getSurveys();
   $scope.idToDate = function(id) {
     if (id) { //prevent error if id undefined
       var timestamp = id.toString().substring(0,8);
       return new Date( parseInt( timestamp, 16 ) * 1000 );
     }
-  }
-  $scope.gotoView = function(id) {
-    $location.path('/view/' + id);
-  }
-  $scope.gotoEdit = function(id) {
-    $location.path('/edit/' + id);
-  }
-  $scope.gotoCreate = function() {
-    $scope.surveys.push(''); // close modal
-    $location.path('/create/' + randomString(4));
-  }
-  $scope.goHome = function(){
-    $scope.surveys.push(''); // close modal
-    $location.path('/');
   }
   $scope.deleteSurvey = function(id){
     $http.delete('/' + id + '.json')
@@ -35,17 +31,11 @@ angular.module('feedbachApp')
         getSurveys();
       })
       .error(function(){
-        //TODO
-        alert('could not delete survey');
+        $scope.modal.show = 'deleteError';
       })
   }
-  function randomString(length) { // returns random alphanumeric string
-    var chars = 'abcdefghijklmnopqrstuvwxyz';
-    var result = '';
-    for (var i = length; i > 0; --i) {
-      result += chars[Math.round(Math.random() * (chars.length - 1))];
-    }
-    return result;
+  $scope.gotoView = function(id){
+    $location.path('/view/' + id);
   }
 
 });

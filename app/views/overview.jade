@@ -1,5 +1,6 @@
 #overview
   h3 Your precious surveys
+  span(ng-if='surveys.length == 0') No surveys found.
   accordion(close-others='true')
     accordion-group(ng-repeat="survey in surveys | orderBy:'_id':true")
       accordion-heading
@@ -16,9 +17,5 @@
         span {{ survey.totalVotes || 0 }}
         strong.pull-right Created: 
           span {{ idToDate(survey._id) | date:'MMM d, y H:mm' }}
-div(modal='surveys.length == 0')
-  .modal-header: h4 No surveys found
-  .modal-body Could not find any surveys. Do you want to create some?
-  .modal-footer
-    button.btn.btn-primary(ng-click='gotoCreate()') Sure, I'll create one
-    botton.btn(ng-click='goHome()') No way, Jose!
+fb-modal(no-surveys)
+fb-modal(delete-error)

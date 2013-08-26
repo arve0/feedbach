@@ -27,18 +27,11 @@ angular.module('feedbachApp')
     })
     .error(function(data, status){
       if (404 == status) $location.path('/create/' + $scope.id());
+      else if (403 == status) $scope.modal.show = 'voteAlreadyRecieved'
       else {
-        window.scrollTo(0,0); // hack for ios virtual keyboard
-        $scope.feedbackGiven = true;        
+        $scope.modal.show = 'error';
       }
     });
-  }
-  $scope.closeModal = function() {
-    $scope.feedbackGiven = false;
-  }
-  $scope.modalOpts = {
-    backdropFade: true,
-    dialogFade:true
   }
   $http.get('/surveys.json').success(function(data){
     $scope.surveys = data;
