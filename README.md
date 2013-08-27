@@ -54,9 +54,10 @@ TODO
 - [x] Reset feedback
 - [ ] About
 - [x] IE vertical align
-- [ ] Buttons instead of radio in vote page
+- [x] Buttons instead of radio in vote page
 - [ ] Test voting on more mobile browsers
-- [ ] Refactor code: modal directive, survey-data as angular service
+- [ ] Refactor code: survey-data as angular service
+- [x] Refactor code: modal directives
 - [ ] Passport login
 - [ ] Review feedback(s) sent
 - [ ] Remove debug messages

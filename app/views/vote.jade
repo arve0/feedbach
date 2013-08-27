@@ -12,8 +12,7 @@
         fieldset(ng-show='$index==activeTab', ng-animate="'slide'")
           b {{q.question}}
           .answer(ng-repeat='a in q.answers')
-            input.pull-left(type='radio', id='[{{$parent.$index}}][{{$index}}]', name='vote{{$parent.$index}}', value='{{$index}}', ng-model='feedback.votes[$parent.$index]', ng-change='vote()')
-            label(for='[{{$parent.$index}}][{{$index}}]') {{a.answer}}
+            button.pull-left.span6.btn(ng-click='vote({{$parent.$index}}, {{$index}})', vote-btn='{{$index}}') {{a.answer}}
 fb-modal(vote-recieved)
 fb-modal(vote-already-recieved)
 fb-modal(survey-not-found)

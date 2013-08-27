@@ -46,3 +46,9 @@ angular.module('feedbachApp', ['ui.bootstrap', 'truncate'])
     });
   }
 })
+.directive('voteBtn', function(){
+  return function(scope, element, attrs){
+    var btnClass = ['btn-primary', 'btn-success', 'btn-danger', 'btn-warning'];
+    element.addClass(btnClass[attrs.voteBtn]);
+  }
+})

@@ -2,8 +2,12 @@
 
 angular.module('feedbachApp')
 .controller('VoteCtrl', function ($scope, $routeParams, $http, $location) {
+  // Variables
+  $scope.modal = {};
   var numberOfQuestions = 0;  
   $scope.view = 'fetching';
+
+  // Resource
   $http.get($routeParams.id + '.json', {cache: false})
     .success(function(data, status){
       $scope.survey = data;
@@ -17,7 +21,7 @@ angular.module('feedbachApp')
         $scope.modal.show = 'voteAlreadyRecieved'
       else
         $scope.modal.show = 'error';
-  }); 
+  });
   $scope.feedback = {};
   $scope.feedback.id = $routeParams.id;
   $scope.feedback.votes = [];
@@ -31,7 +35,8 @@ angular.module('feedbachApp')
   $scope.setNextActive = function() {
     if (($scope.activeTab + 1) < numberOfQuestions) ++$scope.activeTab;
   }
-  $scope.vote = function() {
+  $scope.vote = function(qid, aid) {
+    $scope.feedback.votes[qid] = aid;
     if ($scope.feedback.votes.length == numberOfQuestions) { // voting done?
       for (var i=0; i<numberOfQuestions; ++i) { // check if all questions voted for
         if ($scope.feedback.votes[i] == null) {
