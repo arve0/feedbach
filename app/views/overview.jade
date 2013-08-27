@@ -4,7 +4,8 @@
   accordion(close-others='true')
     accordion-group(ng-repeat="survey in surveys | orderBy:'_id':true")
       accordion-heading
-        h4 {{survey.id}} 
+        h4 
+          span.id {{survey.id}} 
           small(ng-if="survey.description") {{survey.description}}
         //- stopPropagation stops expand of accordion
         button.btn.btn-danger(ng-click='confirmDelete(survey.id); $event.stopPropagation()') Delete
