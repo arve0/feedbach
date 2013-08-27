@@ -5,7 +5,6 @@ angular.module('feedbachApp')
     restrict: 'E',
     controller: function($scope, $location, $route, $timeout){
       // Variables
-      $scope.modal = {};
       $scope.modal.opts = {
         backdropFade: true,
         dialogFade:true
@@ -27,7 +26,8 @@ angular.module('feedbachApp')
         }
       }
       $scope.close = function(){
-        $scope.modal.show = false;
+        if ($scope.modal.show != 'deleteError')
+          $scope.modal.show = false;
       }
       $scope.createRandom = function() {
         var chars = 'abcdefghijklmnopqrstuvwxyz';
@@ -93,5 +93,11 @@ angular.module('feedbachApp')
   return {
     require: 'fbModal',
     templateUrl: 'views/directives/not-owner.html',
+  }
+})
+.directive('confirmDelete', function(){
+  return {
+    require: 'fbModal',
+    templateUrl: 'views/directives/confirm-delete.html',
   }
 })

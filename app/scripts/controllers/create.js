@@ -2,7 +2,11 @@
 
 angular.module('feedbachApp')
 .controller('CreateCtrl', function ($scope, $routeParams, $http, $location) {
+  // Variables
+  $scope.modal = {};
   $scope.active = 0;
+
+  // Resource
   $http.get('/' + $routeParams.id + '.json')
     .success(function(data){
       if (data.owner) $location.path('/view/' + $routeParams.id);
@@ -60,7 +64,6 @@ angular.module('feedbachApp')
     }
   }
   $scope.submitSurvey = function() {
-    console.log(JSON.stringify($scope.survey, null, 2));
     $http.post('/create', $scope.survey).success(function(){
       $location.path('/view/' + $scope.survey.id);
     })

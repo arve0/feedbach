@@ -36,8 +36,9 @@ a:hover {
 .id {
   font-family: Courier;
   font-weight: 400;
+  display: inline;
 }
-#create,#edit {
+#create {
   .answer {
     height: 40px;
     clear: left;
@@ -260,6 +261,7 @@ a:hover {
     margin: 5px 0 5px 0;
     small {
       color: black;
+      display: inline;
     }
   }
   hr {

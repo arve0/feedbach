@@ -3,7 +3,7 @@
 angular.module('feedbachApp')
 .controller('OverviewCtrl', function ($scope, $http, $location) {
   // Variables
-
+  $scope.modal = {};
 
   // Resources
   getSurveys();
@@ -25,7 +25,12 @@ angular.module('feedbachApp')
       return new Date( parseInt( timestamp, 16 ) * 1000 );
     }
   }
+  $scope.confirmDelete = function(id){
+    $scope.deleteId = id;
+    $scope.modal.show = 'confirmDelete';
+  }
   $scope.deleteSurvey = function(id){
+    $scope.modal.show = false;
     $http.delete('/' + id + '.json')
       .success(function(){
         getSurveys();

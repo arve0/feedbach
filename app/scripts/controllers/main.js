@@ -2,9 +2,7 @@
 
 angular.module('feedbachApp')
 .controller('MainCtrl', function ($scope, $http, $location) {
-  $scope.feedbackGiven = false;
-  $scope.margin = 50;
-  $scope.margin = ($(window).height() - $('.frontpage').height())/2 - 30;
+  $scope.modal = {};
   $scope.randomString = function(length) { // returns random alphanumeric string
     var chars = 'abcdefghijklmnopqrstuvwxyz';
     var result = '';

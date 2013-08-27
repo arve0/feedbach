@@ -1,9 +1,9 @@
 #view
   .header.span12
-    h4.id {{survey.id}}
+    h4 <span class="id">{{survey.id}}</span> 
       small {{survey.description}}
-    button.btn.btn-warning(ng-click=('resetFeedback(survey.id)')) Reset feedback
-    button.btn.btn-danger(ng-click=('deleteSurvey(survey.id)')) Delete
+    button.btn.btn-warning(ng-click=('resetFeedback()')) Reset feedback
+    button.btn.btn-danger(ng-click=('confirmDelete()')) Delete
   .span6.questions(ng-repeat='q in survey.questions')
     span.question {{q.question}}
     .answers(ng-repeat='a in q.answers')
@@ -13,5 +13,6 @@
 fb-modal(survey-not-found)
 fb-modal(view-not-allowed)
 fb-modal(error)
-fb-modal(deleteError)
-fb-modal(resetError)
+fb-modal(delete-error)
+fb-modal(confirm-delete)
+fb-modal(reset-error)

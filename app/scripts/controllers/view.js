@@ -4,13 +4,13 @@ angular.module('feedbachApp')
 .controller('ViewCtrl', function ($scope, $routeParams, $http, $location, $timeout) {
   // Variables
   $scope.id = $routeParams.id;
+  $scope.modal = {};
 
   // Resource
   $http.get($routeParams.id + '.json')
     .success(function(data, status){
       if (!data.owner) {
         $scope.modal.show = 'viewNotAllowed';
-        console.log('not allowed');
       }
       else {
         $scope.survey = data;
@@ -20,11 +20,12 @@ angular.module('feedbachApp')
     .error(function(data, status) {
       if (404 == status) {
         $scope.modal.show = 'surveyNotFound';
+        console.log('survey not found')
       }
       else {
         $scope.modal.show = 'error';
       }
-    })
+    });
 
 
   // Socket.io
@@ -56,9 +57,14 @@ angular.module('feedbachApp')
       }
     }
   }
-  $scope.deleteSurvey = function(){
-    $http.delete('/' + $routeParams.id + '.json')
+  $scope.confirmDelete = function(){
+    $scope.deleteId = $routeParams.id;
+    $scope.modal.show = 'confirmDelete';
+  }
+  $scope.deleteSurvey = function(id){
+    $http.delete('/' + id + '.json')
       .success(function(){
+        $scope.modal.show = false;
         $location.path('/');
       })
       .error(function(data){
@@ -68,13 +74,11 @@ angular.module('feedbachApp')
   $scope.resetFeedback = function(){
     $http.delete('/feedback/' + $routeParams.id)
       .success(function(){
-        $http.get($routeParams.id + '.json').success(function(data){
-          resetVotes();
-        })
+        resetVotes();
       })
       .error(function(){
-        $scope.modal.show = 'resetError'
-      })
+        $scope.modal.show = 'resetError';
+      });
   }
   var resetVotes = function(){
     $scope.survey.totalVotes = 0;

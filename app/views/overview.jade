@@ -5,9 +5,10 @@
     accordion-group(ng-repeat="survey in surveys | orderBy:'_id':true")
       accordion-heading
         h4 {{survey.id}} 
-          small {{survey.description}}
-        button.btn.btn-warning(ng-click='deleteSurvey(survey.id)') Delete
-        button.btn.btn-primary(ng-click='gotoView(survey.id)') Live view
+          small(ng-if="survey.description") {{survey.description}}
+        //- stopPropagation stops expand of accordion
+        button.btn.btn-danger(ng-click='confirmDelete(survey.id); $event.stopPropagation()') Delete
+        button.btn.btn-primary(ng-click='gotoView(survey.id); $event.stopPropagation()') Live view
       accordion-body
         ul(ng-repeat='question in survey.questions')
           strong {{question.question}}
@@ -19,3 +20,4 @@
           span {{ idToDate(survey._id) | date:'MMM d, y H:mm' }}
 fb-modal(no-surveys)
 fb-modal(delete-error)
+fb-modal(confirm-delete)

@@ -190,6 +190,7 @@ server.post('/create', function(req, res, next){
   });
 });
 server.get('/surveys.json', function(req, res, next){
+  // prevent cache
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   Survey.find({ owner: req.sessionID }, function(err, doc){
     if (err) next(err);
@@ -200,7 +201,6 @@ server.get('/surveys.json', function(req, res, next){
   })
 });
 server.get('/:id.json', function(req, res, next){
-  // prevent cache
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   Survey.findOne({ id: req.params.id }, function(err, doc){
     if (err) next(err);
