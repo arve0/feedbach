@@ -4,6 +4,7 @@
       small {{survey.description}}
     button.btn.btn-warning(ng-click=('resetFeedback()')) Reset feedback
     button.btn.btn-danger(ng-click=('confirmDelete()')) Delete
+    button.btn(ng-click="modal.show = 'qrCode'") QR
   .span6.questions(ng-repeat='q in survey.questions')
     span.question {{q.question}}
     .answers(ng-repeat='a in q.answers')
@@ -16,3 +17,4 @@ fb-modal(error)
 fb-modal(delete-error)
 fb-modal(confirm-delete)
 fb-modal(reset-error)
+fb-modal(qr-code)

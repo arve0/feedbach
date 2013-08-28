@@ -43,7 +43,7 @@
 
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="bower_components/socket.io-client/dist/socket.io.js"></script>
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
@@ -52,11 +52,13 @@
     <!-- endbuild -->
 
         <!-- build:js scripts/plugins.js -->
+        <script src="bower_components/angular-truncate/dist/angular-truncate.js"></script>
+        <script src="bower_components/qrcode-generator/js/qrcode.js"></script>
+        <script src="bower_components/angular-qrcode/qrcode.js"></script>
+        <script src="scripts/ui-bootstrap-tpls-0.5.0-SNAPSHOT.js"></script>
         <!-- endbuild -->
 
         <!-- build:js scripts/modules.js -->
-        <script src="bower_components/angular-truncate/dist/angular-truncate.js"></script>
-        <script src="scripts/ui-bootstrap-tpls-0.5.0-SNAPSHOT.js"></script>
         <script src="scripts/controllers/create.js"></script>
         <script src="scripts/controllers/vote.js"></script>
         <script src="scripts/controllers/animate.js"></script>

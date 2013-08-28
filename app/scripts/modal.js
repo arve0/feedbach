@@ -107,3 +107,10 @@ angular.module('feedbachApp')
     templateUrl: 'views/directives/confirm-delete.html',
   }
 })
+.directive('qrCode', function(){
+  return {
+    require: 'fbModal',
+    templateUrl: 'views/directives/qr-code.html',
+  }
+})
+

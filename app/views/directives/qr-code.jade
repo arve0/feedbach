@@ -1,0 +1,7 @@
+modal(show="modal.show == 'qrCode'", close='close()', opts='modal.opts')
+  .modal-header
+    h3 QR Code
+  .modal-body
+    qrcode(size='390') http://feedba.ch/#/{{id}}
+  .modal-footer
+    button.btn(ng-click='close()') Close

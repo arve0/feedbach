@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('feedbachApp', ['ui.bootstrap', 'truncate'])
+angular.module('feedbachApp', ['ui.bootstrap', 'truncate', 'monospaced.qrcode'])
 .config(function ($routeProvider) {
   $routeProvider
     .when('/create/:id', {
