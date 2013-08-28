@@ -59,6 +59,12 @@ angular.module('feedbachApp')
     templateUrl: 'views/directives/error.html',
   }
 })
+.directive('createError', function(){
+  return {
+    require: 'fbModal',
+    templateUrl: 'views/directives/create-error.html',
+  }
+})
 .directive('deleteError', function(){
   return {
     require: 'fbModal',

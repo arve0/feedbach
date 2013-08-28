@@ -43,7 +43,13 @@ module.exports = function (grunt) {
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server']
+        tasks: ['compass:server'],
+        dist: {
+          options: {
+            environment: 'production',
+            outputStyle: 'compressed'
+          }
+        }
       },
       livereload: {
         options: {

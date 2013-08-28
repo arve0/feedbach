@@ -26,15 +26,19 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container"><div class="row-fluid">
+    <div class="content-container"><div class="row-fluid">
     <div class="span12" ng-view=""></div>
     </div></div>
 
     <!-- top menu -->
-    <div class="topMenu"><div class="links">
-      <a href="/#/">home</a>
-      <a href="/#/about">about</a>
-      <a href="/#/overview">overview</a>
+    <div class="navbar navbar-fixed-top topMenu"><div class="navbar-inner">
+    <div class="container">
+      <ul class='nav'>
+        <li><a href="/#/">Home</a></li>
+        <li><a href="/#/about">About</a></li>
+        <li><a href="/#/overview">Overview</a></li>
+      </ul>
+     </div>
      </div></div>
 
     <script src="bower_components/jquery/jquery.js"></script>

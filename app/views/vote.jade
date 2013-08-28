@@ -3,7 +3,7 @@
   .vote(ng-switch-when='vote')
     h4 <span class="id">{{survey.id}}</span> 
       small {{survey.description}}
-    p Please vote below!
+    p Please vote by clicking the buttons below.
     ul.nav.nav-tabs
       li(ng-repeat='q in survey.questions', ng-class='{ active: $index==activeTab }')
         a(ng-click='setActive($index)')

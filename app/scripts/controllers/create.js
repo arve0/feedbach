@@ -68,7 +68,7 @@ angular.module('feedbachApp')
       $location.path('/view/' + $scope.survey.id);
     })
     .error(function(){
-      alert('error');
+      $scope.modal.show = 'createError';
     });
   }
 });

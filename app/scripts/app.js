@@ -37,12 +37,16 @@ angular.module('feedbachApp', ['ui.bootstrap', 'truncate'])
 })
 .directive('verticalCenter', function(){
   return function(scope, element, attr){
-    var pixels = ($(window).height() - element.height())/2 - 30 + 'px';
-    element.css('margin-top', pixels);
-    $(window).resize(function(){
-      pixels = ($(window).height() - element.height())/2 - 30 + 'px';
+    var pixels;
+    function setPixels(){
+      pixels = ($(window).height() - element.height())/2 - 30;
+      if (pixels < 50) pixels = 50 + 'px';
+      else             pixels = pixels + 'px';
       element.css('margin-top', pixels);
-    //  scope.$digest();
+    }
+    setPixels();
+    $(window).resize(function(){
+      setPixels();
     });
   }
 })
