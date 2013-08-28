@@ -12,7 +12,7 @@
         button.btn.btn-primary(ng-click='gotoView(survey.id); $event.stopPropagation()') Live view
       accordion-body
         ul(ng-repeat='question in survey.questions')
-          strong {{question.question}}
+          p.lead {{question.question}}
           li(ng-repeat='answer in question.answers') {{answer.answer}}
         hr
         strong Votes: 

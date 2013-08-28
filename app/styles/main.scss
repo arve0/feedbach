@@ -248,6 +248,9 @@ a:hover {
   @include border-radius(5px);
 }
 #overview {
+  p.lead {
+    margin-bottom: 0;
+  }
   .accordion-heading {
     overflow: auto;
     a {
