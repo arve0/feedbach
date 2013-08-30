@@ -27,7 +27,9 @@ server.use(express.bodyParser());
 server.use(express.methodOverride());
 //server.use(server.router);
 server.use(express.static(path.join(__dirname, 'app')));
-// c'secret'ookies and sessions
+// vote client
+server.use('/vote/', express.static(__dirname + '/vote-client'));
+// cookies and sessions
 var cookieSecret = 'super secret';
 server.use(express.cookieParser());
 server.use(express.session({ 
@@ -159,7 +161,7 @@ var Feedback  = mongoose.model('Feedback', FeedbackSchema);
 /*
  * Routes
  */
-server.post('/vote', function(req, res, next){
+server.post('/api/vote', function(req, res, next){
   req.body.sessionID = req.sessionID;
   console.log('voting: '); // TODO
   console.log(JSON.stringify(req.body, null, 2)); // TODO
@@ -264,7 +266,7 @@ server.get('/:id', function(req, res, next){
   Survey.findOne({ id: req.params.id }, function(err, doc){
     if (err) next(err);
     else {
-      if (doc)  res.redirect('/#/' + req.params.id);        // redirect to angular vote route
+      if (doc)  res.redirect('/vote/#/' + req.params.id);        // redirect to angular vote route
       else      res.redirect('/#/create/' + req.params.id); // redirect to angular create route
     }
   });

@@ -34,7 +34,11 @@ module.exports = function (grunt) {
         tasks: ['coffee:dist']
       },
       jade: {
-        files: ['<%= yeoman.app %>/views/*.jade','<%= yeoman.app %>/views/directives/*.jade'],
+        files: [
+          '<%= yeoman.app %>/views/*.jade',
+          '<%= yeoman.app %>/views/directives/*.jade',
+          'vote-client/views/*.jade'          
+          ],
         tasks: ['jade']
       },
       coffeeTest: {
@@ -78,6 +82,12 @@ module.exports = function (grunt) {
             expand: true,
             cwd: '<%= yeoman.app %>/views/directives',
             dest: '<%= yeoman.app %>/views/directives',
+            src: '*.jade',
+            ext: '.html'
+        },{
+            expand: true,
+            cwd: 'vote-client/views',
+            dest: 'vote-client/views',
             src: '*.jade',
             ext: '.html'
         }]

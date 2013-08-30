@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('feedbachApp')
-.controller('MainCtrl', function ($scope, $http, $location) {
+.controller('MainCtrl', function ($scope, $http, $location, $window) {
   $scope.modal = {};
   $scope.randomString = function(length) { // returns random alphanumeric string
     var chars = 'abcdefghijklmnopqrstuvwxyz';
@@ -21,11 +21,15 @@ angular.module('feedbachApp')
     $http.get('/' + $scope.id() + '.json') // check if survey exists
     .success(function(data){
       if (data.owner) $location.path('/view/' + $scope.id());
-      else $location.path('/' + $scope.id());
+      else {
+        var host = $location.host();
+        var port = ($location.port() == 80 ? '' : ':' + $location.port());
+        $window.location.href = 'http://' + host + port + '/vote/#/' + $scope.id();
+      }
     })
     .error(function(data, status){
       if (404 == status) $location.path('/create/' + $scope.id());
-      else if (403 == status) $scope.modal.show = 'voteAlreadyRecieved'
+      else if (403 == status) $scope.modal.show = 'voteAlreadyRecieved';
       else {
         $scope.modal.show = 'error';
       }

@@ -111,6 +111,13 @@ angular.module('feedbachApp')
   return {
     require: 'fbModal',
     templateUrl: 'views/directives/qr-code.html',
+    controller: function($scope, $location, $routeParams) {
+      $scope.qr = {};
+      $scope.qr.host = $location.host();
+      $scope.qr.port = ($location.port() == 80 ? '' : ':' + $location.port());
+      $scope.qr.url = $location.url();
+      $scope.qr.id = $routeParams.id;
+    }
   }
 })
 

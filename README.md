@@ -47,6 +47,7 @@ Coding
 * Indented with 2 spaces
 * Client side code inn app folder
 * Server side code inn server.js (for now)
+* Vote client code at rep http://github.com/arve0/feedbach-vote-client
 
 
 TODO
