@@ -7,7 +7,7 @@ angular.module('feedbachApp')
   $scope.active = 0;
 
   // Resource
-  $http.get('/' + $routeParams.id + '.json')
+  $http.get('/api/survey/' + $routeParams.id )
     .success(function(data){
       if (data.owner) $location.path('/view/' + $routeParams.id);
       else $scope.modal.show = 'notOwner';
@@ -64,7 +64,7 @@ angular.module('feedbachApp')
     }
   }
   $scope.submitSurvey = function() {
-    $http.post('/create', $scope.survey).success(function(){
+    $http.post('/api/survey/', $scope.survey).success(function(){
       $location.path('/view/' + $scope.survey.id);
     })
     .error(function(){

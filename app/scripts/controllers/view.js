@@ -7,7 +7,7 @@ angular.module('feedbachApp')
   $scope.modal = {};
 
   // Resource
-  $http.get($routeParams.id + '.json')
+  $http.get('/api/survey/' + $routeParams.id )
     .success(function(data, status){
       if (!data.owner) {
         $scope.modal.show = 'viewNotAllowed';
@@ -62,7 +62,7 @@ angular.module('feedbachApp')
     $scope.modal.show = 'confirmDelete';
   }
   $scope.deleteSurvey = function(id){
-    $http.delete('/' + id + '.json')
+    $http.delete('/api/survey/' + id )
       .success(function(){
         $scope.modal.show = false;
         $location.path('/');
@@ -72,7 +72,7 @@ angular.module('feedbachApp')
       })
   }
   $scope.resetFeedback = function(){
-    $http.delete('/feedback/' + $routeParams.id)
+    $http.delete('/api/feedback/' + $routeParams.id)
       .success(function(){
         resetVotes();
       })

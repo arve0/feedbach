@@ -1,0 +1,11 @@
+
+<modal show="modal.show == 'surveyNotFound'" close="go('/')" opts="modal.opts">
+  <div class="modal-header">
+    <h3><span class='id'>{{id}}</span> not found</h3>
+  </div>
+  <div class="modal-body">Could not find the survey <span class="id">{{id}}</span>. Do you want to create it?</div>
+  <div class="modal-footer">
+    <button ng-click="go('/create/{{id}}')" class="btn btn-primary">Let's do so!</button>
+    <button ng-click="go('/')" class="btn">Rather chill..</button>
+  </div>
+</modal>

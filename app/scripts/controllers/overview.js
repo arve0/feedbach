@@ -11,7 +11,7 @@ angular.module('feedbachApp')
   
   // Functions
   function getSurveys() {
-    $http.get('/surveys.json')
+    $http.get('/api/survey/')
       .success(function(data, status){
         $scope.surveys = data;
         if ($scope.surveys.length == 0) {
@@ -31,7 +31,7 @@ angular.module('feedbachApp')
   }
   $scope.deleteSurvey = function(id){
     $scope.modal.show = false;
-    $http.delete('/' + id + '.json')
+    $http.delete('/api/survey/' + id )
       .success(function(){
         getSurveys();
       })

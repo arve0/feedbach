@@ -1,18 +1,19 @@
 'use strict';
 
 angular.module('feedbachApp')
-.controller('VoteCtrl', function ($scope, $routeParams, $window, $http) {
+.controller('VoteCtrl', function ($scope, $routeParams, $window, Survey) {
   $scope.modal = {};
-  $http.get($routeParams.id + '.json')
-    .success(function(data, status){
+  Survey.get({ id: $routeParams.id },
+    function success(data){
       $window.location.href = '/vote/#/' + $routeParams.id;
-    })
-    .error(function(data, status) {
-      if (404 == status) 
+    },
+    function error(data) {
+      if (404 == data.status) 
         $scope.modal.show = 'surveyNotFound';
-      else if (403 == status)
+      else if (403 == data.status)
         $scope.modal.show = 'voteAlreadyRecieved'
       else
         $scope.modal.show = 'error';
-  });
+    }
+  );
 });

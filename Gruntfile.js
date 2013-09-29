@@ -35,9 +35,7 @@ module.exports = function (grunt) {
       },
       jade: {
         files: [
-          '<%= yeoman.app %>/views/*.jade',
-          '<%= yeoman.app %>/views/directives/*.jade',
-          'vote-client/views/*.jade'          
+          '<%= yeoman.app %>/**/*.jade'
           ],
         tasks: ['jade']
       },
@@ -63,6 +61,7 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/{,*/}*.html',
           '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
           '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
+          '{.tmp,<%= yeoman.app %>}/vote/scripts/{,*/}*.js',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
@@ -80,14 +79,14 @@ module.exports = function (grunt) {
             ext: '.html'
         },{
             expand: true,
-            cwd: '<%= yeoman.app %>/views/directives',
-            dest: '<%= yeoman.app %>/views/directives',
+            cwd: '<%= yeoman.app %>/vote/views',
+            dest: '<%= yeoman.app %>/vote/views',
             src: '*.jade',
             ext: '.html'
         },{
             expand: true,
-            cwd: 'vote-client/views',
-            dest: 'vote-client/views',
+            cwd: '<%= yeoman.app %>/views/directives',
+            dest: '<%= yeoman.app %>/views/directives',
             src: '*.jade',
             ext: '.html'
         }]
@@ -154,7 +153,8 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= yeoman.app %>/scripts/{,*/}*.js'
+        '<%= yeoman.app %>/scripts/{,*/}*.js',
+        '<%= yeoman.app %>/vote/scripts/{,*/}*.js'
       ]
     },
     coffee: {
@@ -267,7 +267,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>',
-          src: ['*.html', 'views/*.html', 'views/directives/*.html'],
+          src: ['*.html', 'views/*.html', 'main/views/*.html', 'main/views/directives/*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }

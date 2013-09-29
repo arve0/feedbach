@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('feedbachApp', ['ui.bootstrap', 'truncate', 'monospaced.qrcode'])
+angular.module('feedbachApp', ['ngRoute','ngResource', 'ui.bootstrap', 'truncate', 'monospaced.qrcode'])
 .config(function ($routeProvider) {
   $routeProvider
     .when('/create/:id', {
@@ -35,17 +35,20 @@ angular.module('feedbachApp', ['ui.bootstrap', 'truncate', 'monospaced.qrcode'])
       redirectTo: '/'
     });
 })
-.directive('verticalCenter', function(){
+.directive('verticalCenter', function($window){
   return function(scope, element, attr){
     var pixels;
+    var w = angular.element($window);
     function setPixels(){
-      pixels = ($(window).height() - element.height())/2 - 30;
+      var h = $window.innerHeight;
+      var eh = element[0].clientHeight;
+      pixels = (h - eh)/2 - 30;
       if (pixels < 50) pixels = 50 + 'px';
       else             pixels = pixels + 'px';
       element.css('margin-top', pixels);
     }
     setPixels();
-    $(window).resize(function(){
+    w.bind('resize', function(){
       setPixels();
     });
   }
