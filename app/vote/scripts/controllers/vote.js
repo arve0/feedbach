@@ -2,10 +2,6 @@
 
 angular.module('feedbachVote')
 .controller('VoteCtrl', function ($scope, $routeParams, $http, $location, $window) {
-  if ($location.url() == '/vote') { // working directory
-    $window.location.href = '/vote/';
-  }
-
   // Variables
   $scope.modal = {};
   var numberOfQuestions = 0;  
@@ -26,6 +22,7 @@ angular.module('feedbachVote')
       else
         $scope.modal.show = 'error';
   });
+  $scope.id = $routeParams.id;
   $scope.feedback = {};
   $scope.feedback.id = $routeParams.id;
   $scope.feedback.votes = [];

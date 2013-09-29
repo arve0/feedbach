@@ -25,7 +25,7 @@ angular.module('feedbachVote', ['ngRoute', 'ui.bootstrap'])
   // directive with common controller for modals
   return {
     restrict: 'E',
-    controller: function($scope, $location, $route, $timeout, $window){
+    controller: function($scope, $location, $window){
       // Variables
       $scope.modal.opts = {
         backdropFade: true,
