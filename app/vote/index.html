@@ -11,8 +11,8 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="stylesheet" href="/styles/bootstrap-client.min.css">
-        <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="/styles/main.css">
+        <!-- build:css(app) /styles/vote.css -->
+        <link rel="stylesheet" href="/styles/vote.css">
         <!-- endbuild -->
 </head>
   <body ng-app="feedbachVote">
@@ -42,18 +42,16 @@
      </div>
      </div></div>
 
+    <!-- build:js(app) /vote/scripts/libraries.js -->
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/angular-route/angular-route.min.js"></script>
+    <script src="/scripts/ui-bootstrap-tpls-0.5.0-SNAPSHOT.min.js"></script>        
+    <!-- endbuild -->
 
-    <script src="/bower_components/angular/angular.js"></script>
-    <script src="/bower_components/angular-route/angular-route.js"></script>
-
-        <!-- build:js scripts/plugins.js -->
-        <script src="/scripts/ui-bootstrap-tpls-0.5.0-SNAPSHOT.min.js"></script>        
-        <!-- endbuild -->
-
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/vote.js"></script>
-        <!-- endbuild -->
+    <!-- build:js /vote/scripts/feedbach-vote.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/vote.js"></script>
+    <!-- endbuild -->
 </body>
 </html>

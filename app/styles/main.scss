@@ -1,6 +1,7 @@
 @import "bootstrap-sass/lib/bootstrap";
 @import "bootstrap-sass/lib/responsive";
 
+
 body {
   background-color: orange;
 }
@@ -72,7 +73,7 @@ a:hover {
   }
 }
 .topMenu {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   margin-left: 0;
