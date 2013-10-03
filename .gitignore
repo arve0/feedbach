@@ -12,3 +12,4 @@ dump.rdb
 app/views/*.html
 app/views/directives/*.html
 app/styles/*.css
+app/vote/views/*.html
