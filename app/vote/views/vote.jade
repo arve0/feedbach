@@ -16,7 +16,3 @@
           p.lead {{q.question}}
           .answer(ng-repeat='a in q.answers')
             button.pull-left.span6.btn.btn-large(ng-click='vote({{$parent.$index}}, {{$index}})', vote-btn='{{$index}}') {{a.answer}}
-fb-modal(vote-recieved)
-fb-modal(vote-already-recieved)
-fb-modal(survey-not-found)
-fb-modal(error)

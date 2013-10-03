@@ -1,0 +1,7 @@
+modal
+  .modal-header
+    h3 <span class='id'>{{id}}</span> not found
+  .modal-body Could not find the survey <span class="id">{{id}}</span>. Do you want to create it?
+  .modal-footer
+    button.btn.btn-primary(ng-click="$close()", focus) Let's do so!
+    button.btn(ng-click="$dismiss()") Rather chill..

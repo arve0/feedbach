@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('feedbachVote')
-.controller('VoteCtrl', function ($scope, $routeParams, $http, $location, $window) {
+.controller('VoteCtrl', function ($scope, $routeParams, $http, $location, $modal, fbUtils) {
   // Variables
-  $scope.modal = {};
   var numberOfQuestions = 0;  
   $scope.view = 'fetching';
 
@@ -15,12 +14,28 @@ angular.module('feedbachVote')
       $scope.view = 'vote';
     })
     .error(function(data, status) {
-      if (404 == status) 
-        $scope.modal.show = 'surveyNotFound';
-      else if (403 == status)
-        $scope.modal.show = 'voteAlreadyRecieved'
-      else
-        $scope.modal.show = 'error';
+      if (404 == status) {
+        var modal = $modal.open({ 
+          templateUrl: '/views/modals/survey-not-found.html',
+          scope: $scope
+        });
+        modal.result.then(function close(){
+          fbUtils.go('#/create/' + $routeParams.id);
+        }, function dismiss(){
+          $location.path('/');
+        });
+      }
+      else if (403 == status) {
+        var modal = $modal.open({ templateUrl: '/views/modals/vote-already-recieved.html' });
+        modal.result.then(function(){},function dismiss(){
+          $location.path('/');
+        });
+      } else {
+        var modal = $modal.open({ templateUrl: 'views/modals/error.html' });
+        modal.result.then(function(){},function dismiss(){
+          $location.path('/');
+        });
+      }
   });
   $scope.id = $routeParams.id;
   $scope.feedback = {};
@@ -54,13 +69,23 @@ angular.module('feedbachVote')
   function sendVote() {
     $http.post('/api/feedback/', $scope.feedback)
       .success(function(){
-        $scope.modal.show = 'voteRecieved';
+        var modal = $modal.open({ templateUrl: '/views/modals/vote-recieved.html' });
+        modal.result.then(function(){},function dismiss(){
+          $location.path('/');
+        });
       })
       .error(function(data, status){
-        if (403 == status)
-          $scope.modal.show = 'voteAlreadyRecieved';
-        else
-          $scope.modal.show = 'error';
+        if (403 == status) {
+          var modal = $modal.open({ templateUrl: '/views/modals/vote-already-recieved.html' });
+          modal.result.then(function(){},function dismiss(){
+            $location.path('/');
+          });
+        } else {
+          var modal = $modal.open({ templateUrl: 'views/modals/error.html' });
+          modal.result.then(function(){},function dismiss(){
+            $location.path('/');
+          });
+        }
     });
   }
 });

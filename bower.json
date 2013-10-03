@@ -12,7 +12,8 @@
     "angular-truncate": "latest",
     "angular-qrcode": "~1.0.0",
     "angular-route": "v1.2.0-rc.2",
-    "angular-resource": "1.2.0-rc.2"
+    "angular-resource": "1.2.0-rc.2",
+    "angular-ui-bootstrap": "~0.6.0"
   },
   "devDependencies": {}
 }

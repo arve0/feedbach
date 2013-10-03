@@ -10,6 +10,6 @@ dump.rdb
 *.swo
 *~
 app/views/*.html
-app/views/directives/*.html
-app/styles/*.css
+app/views/*/*.html
 app/vote/views/*.html
+app/styles/*.css

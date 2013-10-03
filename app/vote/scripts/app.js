@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('feedbachVote', ['ngRoute', 'ui.bootstrap'])
+angular.module('feedbachVote', ['ngRoute', 'ui.bootstrap.modal'])
 .config(function ($routeProvider) {
   $routeProvider
     .when('/', {
@@ -21,54 +21,24 @@ angular.module('feedbachVote', ['ngRoute', 'ui.bootstrap'])
     element.addClass(btnClass[attrs.voteBtn]);
   }
 })
-.directive('fbModal', function(){
-  // directive with common controller for modals
+.directive('focus', function () {
+  // focus the element
   return {
-    restrict: 'E',
-    controller: function($scope, $location, $window){
-      // Variables
-      $scope.modal.opts = {
-        backdropFade: true,
-        dialogFade:true
-      };
-
-      // Functions
-      $scope.go = function(url){
-        if ($scope.modal.show) {
-          $scope.modal.show = false;
-          var host = $location.host();
-          var port = ($location.port() == 80 ? '' : ':' + $location.port());
-          $window.location.href = 'http://' + host + port + '/#' + url;
-        }
-      }
+    link: function (scope, element) {
+      element[0].focus();
     }
   }
 })
-.directive('voteRecieved', function(){
-  return {
-    require: 'fbModal',
-    templateUrl: 'views/vote-recieved.html',
-  }
-})
-.directive('voteAlreadyRecieved', function(){
-  return {
-    require: 'fbModal',
-    templateUrl: 'views/vote-already-recieved.html',
-  }
-})
-.directive('surveyNotFound', function(){
-  return {
-    require: 'fbModal',
-    templateUrl: 'views/survey-not-found.html',
-  }
-})
-.directive('error', function(){
-  return {
-    require: 'fbModal',
-    templateUrl: 'views/error.html',
+.service('fbUtils', function($location, $window){ // service with shared utils
+  // go to new location outside hash url
+  this.go = function(url){
+    var host = $location.host();
+    var port = ($location.port() == 80 ? '' : ':' + $location.port());
+    $window.location.href = 'http://' + host + port + '/' + url;
   }
 })
 .directive('verticalCenter', function($window){
+  // vertical center element on page
   return function(scope, element, attr){
     var pixels;
     var w = angular.element($window);
