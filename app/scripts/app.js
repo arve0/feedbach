@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('feedbachApp', ['ngRoute','ngResource', 'ui.bootstrap', 'truncate', 'monospaced.qrcode'])
+angular.module('feedbachApp', ['ngRoute','ngResource', 'monospaced.qrcode', 'ui.bootstrap.modal'])
 .config(function ($routeProvider) {
   $routeProvider
     .when('/create/:id', {
@@ -28,8 +28,8 @@ angular.module('feedbachApp', ['ngRoute','ngResource', 'ui.bootstrap', 'truncate
       controller: 'AboutCtrl'
     })
     .when('/:id', {
-      templateUrl: 'views/vote.html',
-      controller: 'VoteCtrl'
+      templateUrl: 'views/redirect.html',
+      controller: 'RedirectCtrl'
     })
     .otherwise({
       redirectTo: '/'
@@ -53,9 +53,19 @@ angular.module('feedbachApp', ['ngRoute','ngResource', 'ui.bootstrap', 'truncate
     });
   }
 })
-.directive('voteBtn', function(){
-  return function(scope, element, attrs){
-    var btnClass = ['btn-primary', 'btn-info', 'btn-success', 'btn-warning'];
-    element.addClass(btnClass[attrs.voteBtn]);
+.directive('focus', function () {
+  // focus the element
+  return {
+    link: function (scope, element) {
+      element[0].focus();
+    }
   }
 })
+.service('fbUtils', function($location, $window){ // service with shared utils
+  // go to new location outside hash url
+  this.go = function(url){
+    var host = $location.host();
+    var port = ($location.port() == 80 ? '' : ':' + $location.port());
+    $window.location.href = 'http://' + host + port + '/' + url;
+  }
+});

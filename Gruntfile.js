@@ -273,11 +273,12 @@ module.exports = function (grunt) {
     'jade:dist',
     'useminPrepare',
     'concurrent:dist',
-    'ngmin',
     'rev',
     'usemin',
     'cssmin',
-    'concat'
+    'concat',
+    'ngmin',
+    'uglify'
   ]);
 
   grunt.registerTask('default', [
