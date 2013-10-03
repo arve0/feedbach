@@ -1,7 +1,0 @@
-modal(show="modal.show == 'notOwner'", close='go("/")', opts='modal.opts')
-  .modal-header
-    h3 Not owner
-  .modal-body This id is already taken. Wan't to create a survey with another id?
-  .modal-footer
-    button.btn.btn-primary(ng-click='createRandom()') Dammit, gimme' another id!
-    button.btn(ng-click='go("/")') Cancel

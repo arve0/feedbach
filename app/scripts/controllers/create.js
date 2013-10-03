@@ -1,29 +1,35 @@
 'use strict';
 
 angular.module('feedbachApp')
-.controller('CreateCtrl', function ($scope, $routeParams, $http, $location) {
+.controller('CreateCtrl', function ($scope, $routeParams, $http, $location, $modal, RandId) {
   // Variables
-  $scope.modal = {};
   $scope.active = 0;
+  function modalThen(template,url1,url2){
+    var modal = $modal.open({ templateUrl: '/views/modals/' + template + '.html' });
+    modal.result.then(function close(){
+      if (url1) $location.path(url1);
+    },function dismiss(){
+      if (url2) $location.path(url2);
+    });
+  }
 
   // Resource
   $http.get('/api/survey/' + $routeParams.id )
     .success(function(data){
       if (data.owner) $location.path('/view/' + $routeParams.id);
-      else $scope.modal.show = 'notOwner';
+      else modalThen('not-owner','/create/' + RandId.create(), '/');
     })
     .error(function(data, status){
-      // modal for people who has already voted
-      if (403 == status) $scope.modal.show = 'notOwner';
+      if (403 == status) modalThen('not-owner','/create/' + RandId.create(),'/');
     });
   $scope.placeholder = {
-    description: 'Optional description',
-    question: 'Where are my pants?',
+    description: 'Great description',
+    question: 'What is the meaning of life?',
     answers: [
-      'On your legs.',
-      'In the bathroom.',
-      'In the washing machine.',
-      'On the roof.'
+      'Skiing',
+      '42',
+      'Simple life',
+      'There is no meaning'
     ]
   }
   $scope.survey = { // Modell
@@ -68,7 +74,7 @@ angular.module('feedbachApp')
       $location.path('/view/' + $scope.survey.id);
     })
     .error(function(){
-      $scope.modal.show = 'createError';
+      modalThen('create-error');
     });
   }
 });

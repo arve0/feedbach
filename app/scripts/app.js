@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('feedbachApp', ['ngRoute','ngResource', 'monospaced.qrcode', 'ui.bootstrap.modal'])
+angular.module('feedbachApp', ['ngRoute','ngResource', 'monospaced.qrcode', 'ui.bootstrap'])
 .config(function ($routeProvider) {
   $routeProvider
     .when('/create/:id', {
@@ -28,7 +28,7 @@ angular.module('feedbachApp', ['ngRoute','ngResource', 'monospaced.qrcode', 'ui.
       controller: 'AboutCtrl'
     })
     .when('/:id', {
-      templateUrl: 'views/redirect.html',
+      template: 'Redirecting..',
       controller: 'RedirectCtrl'
     })
     .otherwise({
