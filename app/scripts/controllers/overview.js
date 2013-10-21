@@ -4,17 +4,13 @@ angular.module('feedbachApp')
 .controller('OverviewCtrl', function ($scope, $http, $location) {
   // Variables
   $scope.modal = {};
-
-  // Resources
-  getSurveys();
-  
   
   // Functions
   function getSurveys() {
     $http.get('/api/survey/')
-      .success(function(data, status){
+      .success(function(data){
         $scope.surveys = data;
-        if ($scope.surveys.length == 0) {
+        if ($scope.surveys.length === 0) {
           $scope.modal.show = 'noSurveys';
         }
       });
@@ -42,5 +38,8 @@ angular.module('feedbachApp')
   $scope.gotoView = function(id){
     $location.path('/view/' + id);
   }
+
+  // Resources
+  getSurveys();
 
 });

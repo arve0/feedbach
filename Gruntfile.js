@@ -24,9 +24,7 @@ module.exports = function (grunt) {
     yeoman: yeomanConfig,
     watch: {
       jade: {
-        files: [
-          '<%= yeoman.app %>/**/*.jade'
-          ],
+        files: [ '<%= yeoman.app %>/**/*.jade'],
         tasks: ['jade']
       },
       compass: {
@@ -55,20 +53,20 @@ module.exports = function (grunt) {
     jade: {
       dist: {
         options: {
-            pretty: false
+          pretty: false
         },
         files: [{
-            expand: true,
-            cwd: '<%= yeoman.app %>/views',
-            dest: '<%= yeoman.app %>/views',
-            src: '{,**/}*.jade',
-            ext: '.html'
+          expand: true,
+          cwd: '<%= yeoman.app %>/views',
+          dest: '<%= yeoman.app %>/views',
+          src: '{,**/}*.jade',
+          ext: '.html'
         },{
-            expand: true,
-            cwd: '<%= yeoman.app %>/vote/views',
-            dest: '<%= yeoman.app %>/vote/views',
-            src: '*.jade',
-            ext: '.html'
+          expand: true,
+          cwd: '<%= yeoman.app %>/vote/views',
+          dest: '<%= yeoman.app %>/vote/views',
+          src: '*.jade',
+          ext: '.html'
         }]
       }
     },
@@ -123,6 +121,8 @@ module.exports = function (grunt) {
       all: [
         'Gruntfile.js',
         '<%= yeoman.app %>/scripts/{,*/}*.js',
+        '!**/*.min.js',
+        '!app/scripts/lib/*.js',
         '<%= yeoman.app %>/vote/scripts/{,*/}*.js'
       ]
     },

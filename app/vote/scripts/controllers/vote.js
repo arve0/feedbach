@@ -3,19 +3,20 @@
 angular.module('feedbachVote')
 .controller('VoteCtrl', function ($scope, $routeParams, $http, $location, $modal, fbUtils) {
   // Variables
-  var numberOfQuestions = 0;  
+  var numberOfQuestions = 0;
+  var modal;
   $scope.view = 'fetching';
 
   // Resource
   $http.get('/api/survey/' + $routeParams.id )
-    .success(function(data, status){
+    .success(function(data){
       $scope.survey = data;
       numberOfQuestions = $scope.survey.questions.length;
       $scope.view = 'vote';
     })
     .error(function(data, status) {
       if (404 == status) {
-        var modal = $modal.open({ 
+        modal = $modal.open({
           templateUrl: '/views/modals/survey-not-found.html',
           scope: $scope
         });
@@ -26,17 +27,17 @@ angular.module('feedbachVote')
         });
       }
       else if (403 == status) {
-        var modal = $modal.open({ templateUrl: '/views/modals/vote-already-recieved.html' });
+        modal = $modal.open({ templateUrl: '/views/modals/vote-already-recieved.html' });
         modal.result.then(function(){},function dismiss(){
           $location.path('/');
         });
       } else {
-        var modal = $modal.open({ templateUrl: 'views/modals/error.html' });
+        modal = $modal.open({ templateUrl: 'views/modals/error.html' });
         modal.result.then(function(){},function dismiss(){
           $location.path('/');
         });
       }
-  });
+    });
   $scope.id = $routeParams.id;
   $scope.feedback = {};
   $scope.feedback.id = $routeParams.id;
@@ -46,16 +47,16 @@ angular.module('feedbachVote')
     $scope.activeTab = index;
   }
   $scope.setPrevActive = function() {
-    if ($scope.activeTab != 0) --$scope.activeTab;
+    if ($scope.activeTab !== 0) { --$scope.activeTab; }
   }
   $scope.setNextActive = function() {
-    if (($scope.activeTab + 1) < numberOfQuestions) ++$scope.activeTab;
+    if (($scope.activeTab + 1) < numberOfQuestions) { ++$scope.activeTab; }
   }
   $scope.vote = function(qid, aid) {
     $scope.feedback.votes[qid] = aid;
     if ($scope.feedback.votes.length == numberOfQuestions) { // voting done?
       for (var i=0; i<numberOfQuestions; ++i) { // check if all questions voted for
-        if ($scope.feedback.votes[i] == null) {
+        if ($scope.feedback.votes[i] === null) {
           $scope.activeTab = i;
           return;
         }
@@ -69,23 +70,23 @@ angular.module('feedbachVote')
   function sendVote() {
     $http.post('/api/feedback/', $scope.feedback)
       .success(function(){
-        var modal = $modal.open({ templateUrl: '/views/modals/vote-recieved.html' });
+        modal = $modal.open({ templateUrl: '/views/modals/vote-recieved.html' });
         modal.result.then(function(){},function dismiss(){
           $location.path('/');
         });
       })
       .error(function(data, status){
         if (403 == status) {
-          var modal = $modal.open({ templateUrl: '/views/modals/vote-already-recieved.html' });
+          modal = $modal.open({ templateUrl: '/views/modals/vote-already-recieved.html' });
           modal.result.then(function(){},function dismiss(){
             $location.path('/');
           });
         } else {
-          var modal = $modal.open({ templateUrl: 'views/modals/error.html' });
+          modal = $modal.open({ templateUrl: 'views/modals/error.html' });
           modal.result.then(function(){},function dismiss(){
             $location.path('/');
           });
         }
-    });
+      });
   }
 });

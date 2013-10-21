@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('feedbachApp')
-.controller('ViewCtrl', function ($scope, $routeParams, $http, $location, $timeout) {
+.controller('ViewCtrl', function ($scope, $routeParams, $http, $location, $modal) {
   // Variables
   $scope.id = $routeParams.id;
   $scope.modal = {};
 
   // Resource
   $http.get('/api/survey/' + $routeParams.id )
-    .success(function(data, status){
+    .success(function(data){
       if (!data.owner) {
         $scope.modal.show = 'viewNotAllowed';
       }
@@ -32,14 +32,16 @@ angular.module('feedbachApp')
   var socket = io.connect('', { 'force new connection': true, query: 'id=' + $routeParams.id });
   socket.on('update', function(feedback){
     for (var i = 0; i < feedback.votes.length; i++) {
-      if(!$scope.survey.questions[i].answers[feedback.votes[i]].votes) $scope.survey.questions[i].answers[feedback.votes[i]].votes = 0;
+      if(!$scope.survey.questions[i].answers[feedback.votes[i]].votes) {
+        $scope.survey.questions[i].answers[feedback.votes[i]].votes = 0;
+      }
       $scope.survey.questions[i].answers[feedback.votes[i]].votes++;
     }
     $scope.survey.totalVotes = ++$scope.survey.totalVotes || 1;
     calculatePercent();
     $scope.$digest(); // update
   });
-  $scope.$on('$destroy', function (event) {
+  $scope.$on('$destroy', function () {
     // disconnect socket when leaving page
     socket.disconnect();
   });
@@ -48,7 +50,7 @@ angular.module('feedbachApp')
   // Functions
   var calculatePercent = function(){
     var total = $scope.survey.totalVotes || 0;
-    if (0==total) $scope.survey.totalVotes=0;
+    if (0===total) { $scope.survey.totalVotes=0; }
     for(var i=0;i<$scope.survey.questions.length;i++){
       for(var j=0;j<$scope.survey.questions[i].answers.length;j++){
         var votes = $scope.survey.questions[i].answers[j].votes || 0;
@@ -67,7 +69,7 @@ angular.module('feedbachApp')
         $scope.modal.show = false;
         $location.path('/');
       })
-      .error(function(data){
+      .error(function(){
         $scope.modal.show = 'deleteError';
       })
   }
@@ -89,4 +91,4 @@ angular.module('feedbachApp')
     }
     calculatePercent();
   }
-}); 
+});

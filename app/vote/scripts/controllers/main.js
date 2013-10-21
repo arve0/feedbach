@@ -14,7 +14,7 @@ angular.module('feedbachVote')
       }
     })
     .error(function(data, status){
-      if (404 == status) fbUtils.go('#/create/' + $scope.input.id);
+      if (404 == status) { fbUtils.go('#/create/' + $scope.input.id); }
       else if (403 == status) {
         $modal.open({ templateUrl: '/views/modals/vote-already-recieved.html' });
       } else {

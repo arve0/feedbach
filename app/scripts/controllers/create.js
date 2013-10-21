@@ -7,20 +7,20 @@ angular.module('feedbachApp')
   function modalThen(template,url1,url2){
     var modal = $modal.open({ templateUrl: '/views/modals/' + template + '.html' });
     modal.result.then(function close(){
-      if (url1) $location.path(url1);
+      if (url1) { $location.path(url1); }
     },function dismiss(){
-      if (url2) $location.path(url2);
+      if (url2) { $location.path(url2); }
     });
   }
 
   // Resource
   $http.get('/api/survey/' + $routeParams.id )
     .success(function(data){
-      if (data.owner) $location.path('/view/' + $routeParams.id);
-      else modalThen('not-owner','/create/' + RandId.create(), '/');
+      if (data.owner) { $location.path('/view/' + $routeParams.id); }
+      else { modalThen('not-owner','/create/' + RandId.create(), '/'); }
     })
     .error(function(data, status){
-      if (403 == status) modalThen('not-owner','/create/' + RandId.create(),'/');
+      if (403 == status) { modalThen('not-owner','/create/' + RandId.create(),'/'); }
     });
   $scope.placeholder = {
     description: 'Great description',
@@ -35,8 +35,7 @@ angular.module('feedbachApp')
   $scope.survey = { // Modell
     id: $routeParams.id,
     description: '',
-    questions: [
-    {
+    questions: [{
       question: '',
       answers: [
         { answer: '' },
@@ -56,7 +55,7 @@ angular.module('feedbachApp')
   $scope.delQuestion = function(index) {
     if (1 < $scope.survey.questions.length) {
       $scope.survey.questions.splice(index, 1);
-      $scope.active = (0 == index? 0 : index - 1);
+      $scope.active = (0 === index? 0 : index - 1);
     }
   }
   $scope.addAnswer = function(index) {
@@ -64,9 +63,9 @@ angular.module('feedbachApp')
       $scope.survey.questions[index].answers.push( { answer: '' });
     }
   }
-  $scope.delAnswer = function(q_index, a_index) {
-    if (2 < $scope.survey.questions[q_index].answers.length) {
-      $scope.survey.questions[q_index].answers.splice(a_index, 1);
+  $scope.delAnswer = function(qIndex, aIndex) {
+    if (2 < $scope.survey.questions[qIndex].answers.length) {
+      $scope.survey.questions[qIndex].answers.splice(aIndex, 1);
     }
   }
   $scope.submitSurvey = function() {

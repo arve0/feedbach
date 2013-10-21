@@ -1,5 +1,5 @@
 'use strict';
 
 angular.module('feedbachApp')
-.controller('AboutCtrl', function ($scope) {
+.controller('AboutCtrl', function () {
 });
