@@ -6,7 +6,6 @@ angular.module('feedbachApp')
   $scope.id = $routeParams.id;
   $scope.voteUrl = fbUtils.baseUrl() + 'vote/#/' + $scope.id;
   $scope.shortUrl = fbUtils.baseUrl() + $scope.id;
-  console.log($scope.voteUrl);
 
   // Resource
   $http.get('/api/survey/' + $routeParams.id )
@@ -82,6 +81,15 @@ angular.module('feedbachApp')
         });
       });
   }
+  function resetVotes(){
+    $scope.survey.totalVotes = 0;
+    for (var i=0; i < $scope.survey.questions.length; i++){
+      for (var j=0; j < $scope.survey.questions[i].answers.length; j++){
+        $scope.survey.questions[i].answers[j].votes = 0;
+      }
+    }
+    calculatePercent();
+  }
   $scope.resetFeedback = function(){
     $http.delete('/api/feedback/' + $routeParams.id)
       .success(function(){
@@ -93,15 +101,6 @@ angular.module('feedbachApp')
           $route.reload();
         });
       });
-  }
-  $scope.resetVotes = function(){
-    $scope.survey.totalVotes = 0;
-    for (var i=0; i < $scope.survey.questions.length; i++){
-      for (var j=0; j < $scope.survey.questions[i].answers.length; j++){
-        $scope.survey.questions[i].answers[j].votes = 0;
-      }
-    }
-    calculatePercent();
   }
   $scope.confirmDelete = function(){
     $scope.deleteId = $scope.id;
