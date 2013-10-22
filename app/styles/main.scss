@@ -76,9 +76,9 @@ a:hover {
   position:absolute;
   top:0;
   left:0;
-  margin-left:0;
+  margin:0;
   opacity:0.9;
-  z-index:-1;
+  z-index:0;
   a {
     color:#000;
   }
@@ -172,7 +172,7 @@ a:hover {
     background-color:white;
     margin-right:10px;
     margin-bottom:10px;
-    border-radius:5px;
+    @include border-radius(5px);
     padding:10px;
   }
 /*  .questions:nth-child(even) {
@@ -273,7 +273,7 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
 }
 .instruction-wrapper {
   .backfade {
-    position:absolute;
+    position:fixed;
     top:0;
     bottom:0;
     left:0;
@@ -284,9 +284,33 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
   }
   .instructions {
     position:absolute;
-    top:0;
-    margin-left:auto;
-    margint-right:auto;
+    top:10px;
+    left:10px;
+    right:10px;
     z-index:3;
+    .span6 {
+      padding:10px;
+      margin-bottom:10px;
+      background:#fff;
+      @include border-radius(5px);
+      h3 { font-weight:200; }
+      li { 
+        list-style-type:upper-roman;
+        font-size:30px;
+        font-weight:500;
+      }
+      .header {
+        @include border-radius(5px 5px 0px 0px);
+        margin:-10px -10px;
+        padding:10px;
+        background:#f0f0f0;
+        h1 {
+          font-weight:300;
+        }
+      }
+    }
+    .span5 canvas {
+      margin:auto 0;
+    }
   }
 }

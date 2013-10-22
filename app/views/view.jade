@@ -12,6 +12,20 @@
       .span8: progress(percent='a.percent') {{a.percent}}% //TODO
   .bottom: strong Votes: {{survey.totalVotes}}
 .instruction-wrapper.hide
-  .backfade
+  .backfade(ng-click='hideInstructions()')
   .instructions
-    qrcode(size="500") {{voteUrl}}
+    .row-fluid
+      .span6
+        .header
+          h1 Method 1
+        li: h3 Scan QR code
+        qrcode(size="200") {{voteUrl}}
+        li: h3 Vote
+      .span6
+        .header
+          h1 Method 2
+        li: h3 Open your brower
+        img(src="images/chrome.jpg", style="width:50px")
+        li: h3 Go to url
+        p.lead {{shortUrl}}
+        li: h3 Vote

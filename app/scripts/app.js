@@ -86,4 +86,16 @@ angular.module('feedbachApp', ['ngRoute','ngResource', 'monospaced.qrcode', 'ui.
       }
     }
   }
+  this.closeFullScreen = function() {
+    // Supports most browsers and their versions.
+    var requestMethod = document.exitFullScreen || document.webkitCancelFullScreen || document.mozCancelFullScreen || document.msExitFullScreen;
+    if (requestMethod) { // Native full screen.
+      requestMethod.call(document);
+    } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+      var wscript = new ActiveXObject("WScript.Shell");
+      if (wscript !== null) {
+        wscript.SendKeys("{ESC}");
+      }
+    }
+  }
 });

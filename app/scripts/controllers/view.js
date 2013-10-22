@@ -113,9 +113,13 @@ angular.module('feedbachApp')
       deleteSurvey($scope.id);
     });
   }
+  var instrEl = document.querySelector('.instruction-wrapper');
   $scope.showInstructions = function(){
-    var instrEl = document.querySelector('.instruction-wrapper');
-    fbUtils.fullScreen(angular.element(instrEl));
     angular.element(instrEl).removeClass('hide');
+    fbUtils.fullScreen(instrEl);
+  }
+  $scope.hideInstructions = function(){
+    angular.element(instrEl).addClass('hide');
+    fbUtils.closeFullScreen();
   }
 });
