@@ -1,6 +1,6 @@
-modal(show="modal.show == 'deleteError'", close='reload()', opts='modal.opts')
+modal
   .modal-header
     h3 Error
   .modal-body Could not delete survey. Does the survey exists? Are you the owner?
   .modal-footer
-    button.btn(ng-click='reload()') Doh!
+    button.btn(ng-click='$dismiss()') Doh!

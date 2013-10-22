@@ -4,17 +4,14 @@
       small {{survey.description}}
     button.btn.btn-warning(ng-click=('resetFeedback()')) Reset feedback
     button.btn.btn-danger(ng-click=('confirmDelete()')) Delete
-    button.btn(ng-click="modal.show = 'qrCode'") QR
+    button.btn(ng-click="showInstructions()") Vote instructions
   .span6.questions(ng-repeat='q in survey.questions')
     span.question {{q.question}}
     .answers(ng-repeat='a in q.answers')
       .span4.answer {{a.answer}}
       .span8: progress(percent='a.percent') {{a.percent}}% //TODO
   .bottom: strong Votes: {{survey.totalVotes}}
-fb-modal(survey-not-found)
-fb-modal(view-not-allowed)
-fb-modal(error)
-fb-modal(delete-error)
-fb-modal(confirm-delete)
-fb-modal(reset-error)
-fb-modal(qr-code)
+.instruction-wrapper.hide
+  .backfade
+  .instructions
+    qrcode(size="500") {{voteUrl}}

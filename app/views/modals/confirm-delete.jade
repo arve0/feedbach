@@ -1,0 +1,7 @@
+modal
+  .modal-header
+    h3 Please confirm
+  .modal-body Sure you wan't to delete the survey <span class="id">{{deleteId}}</span>?
+  .modal-footer
+    button.btn.btn-danger(ng-click='$close()') Delete
+    button.btn(ng-click='$dismiss()', focus) Cancel

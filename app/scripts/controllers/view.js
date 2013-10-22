@@ -1,16 +1,21 @@
 'use strict';
 
 angular.module('feedbachApp')
-.controller('ViewCtrl', function ($scope, $routeParams, $http, $location, $modal) {
+.controller('ViewCtrl', function ($scope, $routeParams, $http, $location, $modal, $timeout, $route, fbUtils) {
   // Variables
   $scope.id = $routeParams.id;
-  $scope.modal = {};
+  $scope.voteUrl = fbUtils.baseUrl() + 'vote/#/' + $scope.id;
+  $scope.shortUrl = fbUtils.baseUrl() + $scope.id;
+  console.log($scope.voteUrl);
 
   // Resource
   $http.get('/api/survey/' + $routeParams.id )
     .success(function(data){
       if (!data.owner) {
-        $scope.modal.show = 'viewNotAllowed';
+        var notAllowedModal = $modal.open({ templateUrl: 'views/modals/view-not-allowed.html' });
+        notAllowedModal.result.then(function close(){},function dismiss(){
+          $location.path('/');
+        })
       }
       else {
         $scope.survey = data;
@@ -19,11 +24,15 @@ angular.module('feedbachApp')
     })
     .error(function(data, status) {
       if (404 == status) {
-        $scope.modal.show = 'surveyNotFound';
-        console.log('survey not found')
+        var notFoundModal = $modal.open({ templateUrl: 'views/modals/survey-not-found.html', scope: $scope });
+        notFoundModal.result.then(function close(){
+          $location.path('/create/' + $routeParams.id);
+        },function dismiss(){
+          $location.path('/');
+        });
       }
       else {
-        $scope.modal.show = 'error';
+        $modal.open({ templateUrl: 'views/modals/error.html' });
       }
     });
 
@@ -59,19 +68,19 @@ angular.module('feedbachApp')
       }
     }
   }
-  $scope.confirmDelete = function(){
-    $scope.deleteId = $routeParams.id;
-    $scope.modal.show = 'confirmDelete';
-  }
-  $scope.deleteSurvey = function(id){
+  var deleteSurvey = function(id){
     $http.delete('/api/survey/' + id )
       .success(function(){
-        $scope.modal.show = false;
         $location.path('/');
       })
       .error(function(){
-        $scope.modal.show = 'deleteError';
-      })
+        var delModal = $modal.open({ templateUrl: 'views/modals/delete-error.html' });
+        delModal.result.then(function close(){},function dismiss(){
+          $timeout(function(){
+            $route.reload();
+          });
+        });
+      });
   }
   $scope.resetFeedback = function(){
     $http.delete('/api/feedback/' + $routeParams.id)
@@ -79,10 +88,13 @@ angular.module('feedbachApp')
         resetVotes();
       })
       .error(function(){
-        $scope.modal.show = 'resetError';
+        var resetModal = $modal.open({ templateUrl: 'views/modals/reset-error.html' });
+        resetModal.result.then(function close(){},function dismiss(){
+          $route.reload();
+        });
       });
   }
-  var resetVotes = function(){
+  $scope.resetVotes = function(){
     $scope.survey.totalVotes = 0;
     for (var i=0; i < $scope.survey.questions.length; i++){
       for (var j=0; j < $scope.survey.questions[i].answers.length; j++){
@@ -90,5 +102,20 @@ angular.module('feedbachApp')
       }
     }
     calculatePercent();
+  }
+  $scope.confirmDelete = function(){
+    $scope.deleteId = $scope.id;
+    var modal = $modal.open({
+      templateUrl: 'views/modals/confirm-delete.html',
+      scope: $scope
+    });
+    modal.result.then(function close(){
+      deleteSurvey($scope.id);
+    });
+  }
+  $scope.showInstructions = function(){
+    var instrEl = document.querySelector('.instruction-wrapper');
+    fbUtils.fullScreen(angular.element(instrEl));
+    angular.element(instrEl).removeClass('hide');
   }
 });

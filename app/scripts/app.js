@@ -62,10 +62,28 @@ angular.module('feedbachApp', ['ngRoute','ngResource', 'monospaced.qrcode', 'ui.
   }
 })
 .service('fbUtils', function($location, $window){ // service with shared utils
+  var host = $location.host();
+  var port = ($location.port() == 80 ? '' : ':' + $location.port());
+  
   // go to new location outside hash url
   this.go = function(url){
-    var host = $location.host();
-    var port = ($location.port() == 80 ? '' : ':' + $location.port());
     $window.location.href = 'http://' + host + port + '/' + url;
+  }
+  // return base url
+  this.baseUrl = function(){
+    return 'http://' + host + port + '/';
+  }
+  // full screen - http://stackoverflow.com/a/7525760
+  this.fullScreen = function(element) {
+    // Supports most browsers and their versions.
+    var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+    if (requestMethod) { // Native full screen.
+      requestMethod.call(element);
+    } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+      var wscript = new ActiveXObject("WScript.Shell");
+      if (wscript !== null) {
+        wscript.SendKeys("{F11}");
+      }
+    }
   }
 });
