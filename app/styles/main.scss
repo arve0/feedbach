@@ -288,7 +288,10 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
     left:10px;
     right:10px;
     z-index:3;
-    .span6 {
+    .row-fluid {
+      margin-bottom:10px;
+    }
+    .method1, .method2 {
       padding:10px;
       margin-bottom:10px;
       background:#fff;
@@ -307,6 +310,10 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
         h1 {
           font-weight:300;
         }
+      }
+      img {
+        width:50px;
+        margin-right:5px;
       }
     }
     .span5 canvas {

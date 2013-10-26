@@ -5,7 +5,7 @@ angular.module('feedbachApp')
   // Variables
   $scope.id = $routeParams.id;
   $scope.voteUrl = fbUtils.baseUrl() + 'vote/#/' + $scope.id;
-  $scope.shortUrl = fbUtils.baseUrl() + $scope.id;
+  $scope.shortUrl = fbUtils.baseUrl().slice(7) + $scope.id;
 
   // Resource
   $http.get('/api/survey/' + $routeParams.id )
@@ -92,9 +92,7 @@ angular.module('feedbachApp')
   }
   $scope.resetFeedback = function(){
     $http.delete('/api/feedback/' + $routeParams.id)
-      .success(function(){
-        resetVotes();
-      })
+      .success(resetVotes)
       .error(function(){
         var resetModal = $modal.open({ templateUrl: 'views/modals/reset-error.html' });
         resetModal.result.then(function close(){},function dismiss(){
