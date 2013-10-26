@@ -1,22 +1,34 @@
 'use strict';
 
 angular.module('feedbachApp')
-.controller('OverviewCtrl', function ($scope, $http, $location) {
-  // Variables
-  $scope.modal = {};
-
-  // Resources
-  getSurveys();
-  
-  
+.controller('OverviewCtrl', function ($scope, $http, $location, RandId, $modal) {
   // Functions
   function getSurveys() {
-    $http.get('/surveys.json')
-      .success(function(data, status){
+    $http.get('/api/survey/')
+      .success(function(data){
         $scope.surveys = data;
-        if ($scope.surveys.length == 0) {
-          $scope.modal.show = 'noSurveys';
+        if ($scope.surveys.length === 0) {
+          var noSurveys = $modal.open({ templateUrl: '/views/modals/no-surveys.html' });
+          noSurveys.result.then(function close(){
+            $location.path('/create/' + RandId.create());
+          },function dismiss(){
+            $location.path('/');
+          });
         }
+      })
+      .error(function(){
+        var errorModal = $modal.open({ templateUrl: 'views/modals/error.html' });
+        errorModal.result.then(function(){},function dismiss(){
+          $location.path('/');
+        });
+      });
+  }
+  function deleteSurvey(){
+    $http.delete('/api/survey/' + $scope.deleteId )
+      .success(getSurveys)
+      .error(function(){
+        var errorModal = $modal.open({ templateUrl: '/views/modals/delete-error.html' });
+        errorModal.result.then(function(){}, getSurveys);
       });
   }
   $scope.idToDate = function(id) {
@@ -27,20 +39,14 @@ angular.module('feedbachApp')
   }
   $scope.confirmDelete = function(id){
     $scope.deleteId = id;
-    $scope.modal.show = 'confirmDelete';
-  }
-  $scope.deleteSurvey = function(id){
-    $scope.modal.show = false;
-    $http.delete('/' + id + '.json')
-      .success(function(){
-        getSurveys();
-      })
-      .error(function(){
-        $scope.modal.show = 'deleteError';
-      })
+    var delModal = $modal.open({ templateUrl: '/views/modals/confirm-delete.html', scope: $scope });
+    delModal.result.then(deleteSurvey);
   }
   $scope.gotoView = function(id){
     $location.path('/view/' + id);
   }
+
+  // Resources
+  getSurveys();
 
 });

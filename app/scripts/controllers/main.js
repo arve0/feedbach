@@ -1,41 +1,30 @@
 'use strict';
 
 angular.module('feedbachApp')
-.controller('MainCtrl', function ($scope, $http, $location, $window) {
-  $scope.modal = {};
-  $scope.randomString = function(length) { // returns random alphanumeric string
-    var chars = 'abcdefghijklmnopqrstuvwxyz';
-    var result = '';
-    for (var i = length; i > 0; --i) {
-      result += chars[Math.round(Math.random() * (chars.length - 1))];
-    }
-    return result;
-  }
-  $scope.placeholder = $scope.randomString(4); // 4 letters ~ 500'000 possibilities
+.controller('MainCtrl', function ($scope, $location, $window, Survey, RandId, fbUtils, $modal) {
+  $scope.placeholder = RandId.create();
   $scope.input = {}; // make sure child scopes updates parent scope
   $scope.input.id = '';
-  $scope.id = function id() { // if input not defined, return placeholder
-    return ($scope.input.id ? $scope.input.id : $scope.placeholder);
+  function id() { // if input not defined, return placeholder
+    return ($scope.input.id || $scope.placeholder);
   }
   $scope.submit = function() {
-    $http.get('/' + $scope.id() + '.json') // check if survey exists
-    .success(function(data){
-      if (data.owner) $location.path('/view/' + $scope.id());
-      else {
-        var host = $location.host();
-        var port = ($location.port() == 80 ? '' : ':' + $location.port());
-        $window.location.href = 'http://' + host + port + '/vote/#/' + $scope.id();
-      }
-    })
-    .error(function(data, status){
-      if (404 == status) $location.path('/create/' + $scope.id());
-      else if (403 == status) $scope.modal.show = 'voteAlreadyRecieved';
-      else {
-        $scope.modal.show = 'error';
-      }
-    });
+    Survey.get({ id: id() },
+      function success(data){
+        if (data.owner) {
+          $location.path('/view/' + id()); // live view of votes
+        }
+        else {
+          fbUtils.go('vote/#/' + id()); // light vote client
+        }
+      },function error(data){
+        if (404 == data.status) {
+          $location.path('/create/' + id());
+        } else if (403 == data.status) {
+          $modal.open({ templateUrl: '/views/modals/vote-already-recieved.html' });
+        } else {
+          $modal.open({ templateUrl: '/views/modals/error.html' });
+        }
+      });
   }
-  $http.get('/surveys.json').success(function(data){
-    $scope.surveys = data;
-  });
 });

@@ -161,37 +161,9 @@ var Feedback  = mongoose.model('Feedback', FeedbackSchema);
 /*
  * Routes
  */
-server.post('/api/vote', function(req, res, next){
-  req.body.sessionID = req.sessionID;
-  console.log('voting: '); // TODO
-  console.log(JSON.stringify(req.body, null, 2)); // TODO
-  Feedback.findOne({id: req.body.id, sessionID: req.sessionID}, function(err, doc){
-    if (err) next(err);
-    if (doc) next(new Error('Double vote?')); // avoid several vote from same session
-    else {
-      new Feedback(req.body).save(function(err){
-        if (err) next(err);
-        else {
-          console.log('saved to mongo!'); //TODO
-          res.send('OK');
-        }
-      });
-    }
-  });
-});
-server.post('/create', function(req, res, next){
-  req.body.owner = req.sessionID;
-  console.log('creating: '); //TODO
-  console.log(JSON.stringify(req.body, null, 2)); //TODO 
-  new Survey(req.body).save(function(err){
-    if (err) next(err);
-    else {
-      console.log('saved to mongo!'); //TODO
-      res.send('OK');
-    }
-  });
-});
-server.get('/surveys.json', function(req, res, next){
+
+/* REST survey */
+server.get('/survey/', function(req, res, next){
   // prevent cache
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   Survey.find({ owner: req.sessionID }, function(err, doc){
@@ -202,7 +174,7 @@ server.get('/surveys.json', function(req, res, next){
     }
   })
 });
-server.get('/:id.json', function(req, res, next){
+server.get('/survey/:id', function(req, res, next){
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   Survey.findOne({ id: req.params.id }, function(err, doc){
     if (err) next(err);
@@ -228,7 +200,19 @@ server.get('/:id.json', function(req, res, next){
     else res.send(404, 'Not found.');
   });
 });
-server.delete('/:id.json', function(req, res, next){
+server.post('/survey/', function(req, res, next){
+  req.body.owner = req.sessionID;
+  console.log('creating: '); //TODO
+  console.log(JSON.stringify(req.body, null, 2)); //TODO 
+  new Survey(req.body).save(function(err){
+    if (err) next(err);
+    else {
+      console.log('saved to mongo!'); //TODO
+      res.send('OK');
+    }
+  });
+});
+server.delete('/survey/:id', function(req, res, next){
   Survey.findOne({ id: req.params.id, owner: req.sessionID }, function(err, doc){
     if (err) next(err);
     if (doc) {
@@ -240,6 +224,26 @@ server.delete('/:id.json', function(req, res, next){
     else res.send(401, 'Not authorized.');
   })
   .remove();
+});
+
+/* REST feedback */
+server.post('/feedback/', function(req, res, next){
+  req.body.sessionID = req.sessionID;
+  console.log('voting: '); // TODO
+  console.log(JSON.stringify(req.body, null, 2)); // TODO
+  Feedback.findOne({id: req.body.id, sessionID: req.sessionID}, function(err, doc){
+    if (err) next(err);
+    if (doc) next(new Error('Double vote?')); // avoid several vote from same session
+    else {
+      new Feedback(req.body).save(function(err){
+        if (err) next(err);
+        else {
+          console.log('saved to mongo!'); //TODO
+          res.send('OK');
+        }
+      });
+    }
+  });
 });
 server.delete('/feedback/:id', function(req, res, next){
   Survey.findOne({ id: req.params.id, owner: req.sessionID }, function(err, doc){
@@ -261,7 +265,9 @@ server.delete('/feedback/:id', function(req, res, next){
     }
     else res.send(401, 'Not authorized.');
   })
-})
+});
+
+/* redirect url - old, now in nginx
 server.get('/:id', function(req, res, next){
   Survey.findOne({ id: req.params.id }, function(err, doc){
     if (err) next(err);
@@ -271,7 +277,7 @@ server.get('/:id', function(req, res, next){
     }
   });
 });
-
+*/
 
 
 http.listen(server.get('port'), function(){

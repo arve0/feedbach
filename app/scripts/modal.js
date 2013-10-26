@@ -1,3 +1,4 @@
+'use strict';
 angular.module('feedbachApp')
 .directive('fbModal', function(){
   // directive with common controller for modals
@@ -26,8 +27,9 @@ angular.module('feedbachApp')
         }
       }
       $scope.close = function(){
-        if ($scope.modal.show != 'deleteError')
+        if ($scope.modal.show != 'deleteError') {
           $scope.modal.show = false;
+        }
       }
       $scope.createRandom = function() {
         var chars = 'abcdefghijklmnopqrstuvwxyz';

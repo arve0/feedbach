@@ -1,7 +1,0 @@
-modal(show="modal.show == 'confirmDelete'", close='close()', opts='modal.opts')
-  .modal-header
-    h3 Please confirm
-  .modal-body Sure you wan't to delete the survey <span class="id">{{deleteId}}</span>?
-  .modal-footer
-    button.btn.btn-danger(ng-click='deleteSurvey(deleteId)') Delete
-    button.btn(ng-click='close()') Cancel

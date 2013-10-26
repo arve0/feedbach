@@ -1,6 +1,6 @@
-modal(show="modal.show == 'resetError'", close='reload()', opts='modal.opts')
+modal
   .modal-header
     h3 Error
   .modal-body Could not reset the feedback. Are you the owner? Have the survey been deleted?
   .modal-footer
-    button.btn(ng-click='reload()') Doh!
+    button.btn(ng-click='$dismiss()') Doh!

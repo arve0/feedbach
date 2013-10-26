@@ -1,13 +1,13 @@
 #frontpage(vertical-center)
   h1 feedba.ch
-  p.lead Vote or create a survey below!
+  p.lead Vote by giving an 
+    strong ID 
+    | and press 
+    strong Start!
   form(ng-submit='submit()')
     input(type='text', placeholder='{{placeholder}}', ng-model='input.id', autocorrect='off', autocapitalize='off').text-center
     br
     button.btn Start!
-  h4(ng-if='surveys.length != 0') Your surveys:
-  li(ng-repeat="survey in surveys | orderBy:'_id':true | limitTo:5"): a(href='/#/view/{{survey.id}}') {{survey.id}} 
-    span(ng-if="survey.description != ''") - {{survey.description | words:5 }}
-  a(ng-if='surveys.length > 5', href='/#/overview'): strong More...
-fb-modal(vote-already-recieved)
-fb-modal(error)
+  p If 
+    strong.id {{(input.id || placeholder)}}
+    |  does not exist,<br> you will be redirected to create it.

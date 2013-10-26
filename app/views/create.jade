@@ -3,7 +3,7 @@ form(id='create', novalidate, name='createSurvey', ng-submit='submitSurvey()')
   label(for='description') 
     h4 Creating 
       span.id {{survey.id}}
-  input.input(type='text', id='description', placeholder='{{placeholder.description}}', ng-model='survey.description', tooltip-placement='bottom', tooltip-trigger='focus', tooltip-html-unsafe='Add a description to survey <strong>{{survey.id}}</strong> to easier remember it.')
+  input.input(type='text', id='description', placeholder='{{placeholder.description}}', ng-model='survey.description', tooltip-placement='bottom', tooltip-trigger='focus', tooltip='Easier remember your survey.')
   ul.nav.nav-tabs
     li(ng-repeat='q in survey.questions', ng-class='{ active: $index==active }')
       a(ng-click='setActive($index)')
@@ -24,5 +24,3 @@ form(id='create', novalidate, name='createSurvey', ng-submit='submitSurvey()')
         input.pull-left(type='text', name='anwer{{$parent.$index}}{{$index}}', id='answer[{{$parent.$index}}][{{$index}}]', placeholder='{{placeholder.answers[$index]}}', ng-model='a.answer', required, tooltip-placement='top', tooltip-trigger='focus', tooltip='Two answers per question are required.')
         span.close(ng-click='delAnswer($parent.$index, $index)') &times;
   button.btn.btn-primary(type='submit') Create!
-fb-modal(not-owner)
-fb-modal(create-error)
