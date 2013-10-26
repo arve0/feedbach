@@ -1,0 +1,18 @@
+#vote(ng-switch='view')
+  .fetching(ng-switch-when='fetching') Please wait...
+  .vote(ng-switch-when='vote')
+    h4
+      span.id {{survey.id}}
+      small {{survey.description}}
+    p Please vote by clicking the buttons below.
+    ul.nav.nav-tabs
+      li(ng-repeat='q in survey.questions', ng-class='{ active: $index==activeTab }')
+        a(ng-click='setActive($index)')
+          span.hidden-phone Question 
+          | {{$index + 1}}
+    .tab-content
+      .tab(ng-repeat='q in survey.questions')
+        fieldset(ng-show='$index==activeTab', ng-animate="'slide'")
+          p.lead {{q.question}}
+          .answer(ng-repeat='a in q.answers')
+            button.pull-left.span6.btn.btn-large(ng-click='vote({{$parent.$index}}, {{$index}})', vote-btn='{{$index}}') {{a.answer}}

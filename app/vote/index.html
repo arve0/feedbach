@@ -1,0 +1,57 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css(app) /styles/vote.css -->
+        <link rel="stylesheet" href="/styles/lib/bootstrap-vote.css">
+        <link rel="stylesheet" href="/styles/vote.css">
+        <!-- endbuild -->
+</head>
+  <body ng-app="feedbachVote">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+      <script src="/bower_components/es5-shim/es5-shim.js"></script>
+      <script src="/bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="content-container"><div class="row-fluid">
+    <div class="span12" ng-view=""></div>
+    </div></div>
+
+
+    <!-- top menu -->
+    <div class="navbar navbar-fixed-top topMenu"><div class="navbar-inner">
+    <div class="container">
+      <ul class='nav'>
+        <li><a href="/#/">Home</a></li>
+        <li><a href="/#/about">About</a></li>
+        <li><a href="/#/overview">Your surveys</a></li>
+      </ul>
+     </div>
+     </div></div>
+
+    <!-- build:js(app) /vote/scripts/libraries.js -->
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/angular-route/angular-route.min.js"></script>
+    <script src="/scripts/lib/ui-bootstrap-modal.min.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js /vote/scripts/feedbach-vote.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/vote.js"></script>
+    <!-- endbuild -->
+</body>
+</html>
