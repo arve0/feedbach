@@ -32,7 +32,7 @@ angular.module('feedbachVote')
           $location.path('/');
         });
       } else {
-        modal = $modal.open({ templateUrl: 'views/modals/error.html' });
+        modal = $modal.open({ templateUrl: '/views/modals/error.html' });
         modal.result.then(function(){},function dismiss(){
           $location.path('/');
         });
@@ -56,7 +56,7 @@ angular.module('feedbachVote')
     $scope.feedback.votes[qid] = aid;
     if ($scope.feedback.votes.length == numberOfQuestions) { // voting done?
       for (var i=0; i<numberOfQuestions; ++i) { // check if all questions voted for
-        if ($scope.feedback.votes[i] === null) {
+        if ($scope.feedback.votes[i] == undefined) {
           $scope.activeTab = i;
           return;
         }
@@ -82,7 +82,7 @@ angular.module('feedbachVote')
             $location.path('/');
           });
         } else {
-          modal = $modal.open({ templateUrl: 'views/modals/error.html' });
+          modal = $modal.open({ templateUrl: '/views/modals/error.html' });
           modal.result.then(function(){},function dismiss(){
             $location.path('/');
           });
