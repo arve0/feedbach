@@ -79,9 +79,16 @@ var minVotes = function(array) { // min 1 vote, TODO: nescessary when array requ
 var maxVotes = function(array) {
   return (7 > array.length);
 }
+var notNull = function(array) {
+  for (var i=0; i < array.length; i++) {
+    if (array[i] == null) return false;
+  }
+  return true;
+}
 var validateVoteArray = [
   { validator: minVotes, msg: 'Too few votes, min: 1' },
-  { validator: maxVotes, msg: 'Too many votes, max: 6' }
+  { validator: maxVotes, msg: 'Too many votes, max: 6' },
+  { validator: notNull, msg: 'Vote for all questions needed.' }
 ];
 
 
