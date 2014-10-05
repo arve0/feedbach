@@ -45,8 +45,8 @@ Coding
 ======
 * Scaffolded with http://yeoman.io/
 * Indented with 2 spaces
-* Client side code inn app folder
-* Server side code inn server.js (for now)
+* Client side code in app folder
+* Server side code in server.js (for now)
 
 
 TODO
